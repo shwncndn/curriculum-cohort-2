@@ -81,8 +81,23 @@ defmodule Anagram do
 
     iex> Anagram.anagram?("robed", "bored")
     true
+     
   """
+
+  # input two strings -> true/false
+  # "abc", "cab" -> true
+
   def anagram?(word, possible_anagram) do
+    if String.length(word) == String.length(possible_anagram) do
+      [word1, word2] =
+        for each <- [word, possible_anagram] do
+          String.split(each, "", trim: true) |> Enum.sort()
+        end
+
+      word1 == word2
+    else
+      false
+    end
   end
 
   @doc """
@@ -90,18 +105,49 @@ defmodule Anagram do
 
   ## Examples
 
-    iex> Anagram.filter_anagrams(["abc", "bca", "abcd", "cat"], "bac")
-    ["abc", "bca"]
+  iex> Anagram.filter_anagrams(["abc", "bca", "abcd", "cat"], "bac")
+  ["abc", "bca"]
 
-    iex> Anagram.filter_anagrams(["rams", "mars", "arms", "alarms"], "arms")
-    ["rams", "mars", "arms"]
+  iex> Anagram.filter_anagrams(["rams", "mars", "arms", "alarms"], "arms")
+  ["rams", "mars", "arms"]
 
-    iex> Anagram.filter_anagrams(["stop"], "go")
-    []
+  iex> Anagram.filter_anagrams(["stop"], "go")
+  []
   """
   def filter_anagrams(word_list, anagram) do
+    # filter the list to find any possible anagrams (Enum.filter)
+
+    Enum.filter(word_list, fn each -> anagram?(each, anagram) end)
   end
 end
+
+Anagram.filter_anagrams(["abc", "bca", "abcd", "cat"], "bac")
+```
+
+```elixir
+word
+String.split(trim: true)
+
+Enum.reduce()
+```
+
+```elixir
+# if length(word) == length(possible_anagram) do
+#     possible_anagram = String.split(possible_anagram, "", trim: true)
+
+#     Enum.all?(String.split(word, "", trim: true), fn letter ->
+#       letter in possible_anagram
+#     end)
+#   else
+#     false
+#   end
+
+# start with defining input and output
+# split string input to make a list that can be enumerated over
+# get "cab" and "abc" to match truthy
+# five ideas to find the way to make them match?
+# try sorting (Enum.sort)
+# get an alphabetized 
 ```
 
 ## Bonus: Anagram Solver

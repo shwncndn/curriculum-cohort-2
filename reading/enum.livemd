@@ -384,7 +384,7 @@ Enum.map(1..10, fn integer -> "#{integer}" end)
 Enter your solution below.
 
 ```elixir
-
+Enum.map(1..9, &Integer.to_string/1)
 ```
 
 ## Enum.reduce/2 And Enum.reduce/3
@@ -635,6 +635,8 @@ Use [Enum.any?/2](https://hexdocs.pm/elixir/Enum.html#any?/2) to determine if an
 
 ```elixir
 animals = [:cats, :dogs, :bears, :lions, :penguins]
+
+Enum.any?(animals, fn dogs -> dogs == :dogs end)
 ```
 
 ## Enum.count/1

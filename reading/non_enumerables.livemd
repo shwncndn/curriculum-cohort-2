@@ -61,7 +61,7 @@ While we can't enumerate over non-enumerable data types, Elixir provides many fu
 We can use the [Integer.digits/1](https://hexdocs.pm/elixir/Integer.html#digits/1) function to convert integers to a list of digits.
 
 ```elixir
-Integer.digits(123)
+Integer.digits(123_768_738_653)
 ```
 
 ### Your Turn
@@ -69,7 +69,7 @@ Integer.digits(123)
 In the Elixir cell below, convert the integer `4389` into a list of digits.
 
 ```elixir
-
+Integer.digits(4389)
 ```
 
 ### Undigits
@@ -150,7 +150,12 @@ Now your string is an enumerable list of characters.
 In the Elixir cell below, convert the string `"Hello, world!"` into a list of single characters.
 
 ```elixir
-
+IO.inspect("Hello, World!")
+# original string printed
+String.split("Hello, World!", "", trim: true) |> IO.inspect()
+# string split into individual characters
+Enum.join(["H", "e", "l", "l", "o", ",", " ", "W", "o", "r", "l", "d", "!"]) |> IO.inspect()
+# string rejoined
 ```
 
 ### Joining Strings
@@ -183,7 +188,7 @@ split_string = String.split("secret information", "")
 transformed_list =
   Enum.map(split_string, fn char ->
     case char do
-      " " -> " "
+      "" -> ""
       _ -> "X"
     end
   end)
@@ -228,8 +233,13 @@ defmodule CharacterCount do
       4
   """
   def count(string) do
+    string
+    |> String.split("", trim: true)
+    |> Enum.count()
   end
 end
+
+CharacterCount.count("abcdefg")
 ```
 
 ## Further Reading

@@ -126,6 +126,7 @@ end
 ```elixir
 defmodule Products do
   def all_items do
+    for each <- 
   end
 
   def search(items, filters) do

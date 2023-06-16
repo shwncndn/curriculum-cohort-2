@@ -138,6 +138,8 @@ end
 
 ```elixir
 defmodule TicTacToe do
+  List.update_at()
+
   @moduledoc """
     Documentation for `TicTacToe`
   """
@@ -161,7 +163,17 @@ defmodule TicTacToe do
       iex> TicTacToe.at(board, {0, 2})
       "A"
   """
+
+  # keyfind(list, key, position, default \\ nil)
+
   def at(board, coordinate) do
+    # x = 0, y = 0
+    # the {x,y} coordinate is the organization of the x and y variable
+    # which will be bound to by the coordinate variable
+    {x, y} = coordinate
+
+    # 
+    Enum.at(board, 2 - y) |> Enum.at(x)
   end
 
   @doc """
@@ -182,6 +194,31 @@ defmodule TicTacToe do
   def fill(board, coordinate, symbol) do
   end
 end
+
+board = [
+  ["A", "B", "C"],
+  ["D", "E", "F"],
+  ["G", "H", "I"]
+]
+
+TicTacToe.at(board, {1, 2}) |> IO.inspect()
+```
+
+![](images/tic_tac_toe_coordinates_grid.png)
+
+```elixir
+row1 = [{0, 2}, {1, 2}, {2, 2}]
+row2 = [{0, 1}, {1, 1}, {2, 1}]
+row3 = [{0, 0}, {1, 0}, {2, 0}]
+
+board = [row1, row2, row3]
+
+x = 0
+y = 0
+
+board_index = selected_row = Enum.at(board, 0)
+
+Enum.at(selected_row, x)
 ```
 
 ### Bonus: Winner

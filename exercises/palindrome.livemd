@@ -85,9 +85,87 @@ defmodule Palindrome do
     iex> Palindrome.palindrome?("apples")
     false
   """
-  def palindrome?(string) do
+
+  # Enum solution
+
+  def palindrome?(input) do
+    string = input
+
+    reversed_string =
+      string
+      |> String.split("", trim: true)
+      |> Enum.reverse()
+      |> Enum.join()
+
+    if string == reversed_string do
+      true
+    else
+      false
+    end
   end
 end
+
+Palindrome.palindrome?("kayak")
+```
+
+```elixir
+list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+Enum.filter(list, fn each -> each >= 5 end)
+```
+
+```elixir
+# Same solution as above without the extraneous String.split and Enum logic piped
+# in the body of the function. Instead just set the input to the string variable.
+# Used a cond statement at the end instead of an if statement.
+# Example solution showed the more concise approach of checking == in the Enum.join
+
+# defmodule Palindrome do
+
+#   def palindrome?(input) do
+
+#     string = input
+
+#     reverse_string =
+
+#     string
+#     |> IO.inspect()
+#     |> String.split("", trim: true)
+#     |> IO.inspect()
+#     |> Enum.reverse()
+#     |> IO.inspect()
+#     |> Enum.join()
+#     |> IO.inspect()
+
+#     cond do
+#       string == reverse_string -> true
+#       string != reverse_string -> false
+#     end
+# end
+# end
+
+# Palindrome.palindrome?("kayak")
+```
+
+```elixir
+# comprehension solution
+
+defmodule Palindrome do
+  def palindrome?(input) do
+    string = String.split(input, "", trim: true)
+
+    possible_palindrome =
+      input
+      |> String.split("", trim: true)
+      |> Enum.reverse()
+
+    for a <- string, b <- possible_palindrome do
+      a == b
+    end
+  end
+end
+
+Palindrome.palindrome?("shawn")
 ```
 
 ## Commit Your Progress
