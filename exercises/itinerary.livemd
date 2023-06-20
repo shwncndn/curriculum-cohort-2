@@ -73,7 +73,17 @@ defmodule Itinerary do
     false
     
   """
+
+  # input: two time examples and 
+
   def has_time?(start, finish, minutes) do
+    time_difference = DateTime.diff(finish, start)
+
+    if time_difference >= minutes * 60 do
+      true
+    else
+      false
+    end
   end
 end
 ```

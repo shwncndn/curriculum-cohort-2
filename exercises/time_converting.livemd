@@ -89,7 +89,26 @@ defmodule TimeConverter do
     86400
 
   """
+
+  # input: unit of time     output: number of seconds
+
+  # five ideas 
+  # use Time.to_seconds_after_midnight()
+  # case statement for the :atom units
+
   def to_seconds(amount, unit) do
+    seconds = amount
+    minutes = seconds * 60
+    hours = seconds * 60 * 60
+    days = seconds * 60 * 60 * 24
+
+    case unit do
+      :seconds -> seconds
+      :minutes -> minutes
+      :hours -> hours
+      :days -> days
+      true -> "Please enter a valid unit of time"
+    end
   end
 
   @doc """
@@ -112,8 +131,23 @@ defmodule TimeConverter do
 
   """
   def from_seconds(amount, unit) do
+    seconds = amount * 1.0
+    minutes = seconds / 60
+    hours = seconds / (60 * 60)
+    days = seconds / (60 * 60 * 24)
+
+    case unit do
+      :seconds -> seconds
+      :minutes -> minutes
+      :hours -> hours
+      :days -> days
+      true -> "Please enter a valid unit of time"
+    end
   end
 end
+
+TimeConverter.to_seconds(4, :days) |> IO.inspect()
+TimeConverter.from_seconds(86400, :days) |> IO.inspect()
 ```
 
 ## Commit Your Progress
