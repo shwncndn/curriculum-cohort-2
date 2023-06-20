@@ -120,7 +120,21 @@ defmodule Timeline do
     iex> Timeline.from_dates([~D[2020-01-01], ~D[2020-01-10], ~D[2020-01-22], ~D[2020-01-24]])
     [9, 12, 2]
   """
+
+  # Input: list of dates    Output: days between each date
+  # 5 ideas
+  # Date.diff()
+  # Date.add() subtracting using negative integer
+  # Enum.reduce or Enum.map or Enum.?
+
+  # Date
+
+  # Enum.reduce(dates, [], fn each, acc -> Date.diff(each, acc) end)
+
   def from_dates(dates) do
+    dates
+    |> Enum.chunk_every(2, 1, :discard)
+    |> Enum.map(fn each -> Date.diff() end)
   end
 
   @doc """

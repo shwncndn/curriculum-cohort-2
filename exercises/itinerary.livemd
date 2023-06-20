@@ -77,13 +77,8 @@ defmodule Itinerary do
   # input: two time examples and 
 
   def has_time?(start, finish, minutes) do
-    time_difference = DateTime.diff(finish, start)
-
-    if time_difference >= minutes * 60 do
-      true
-    else
-      false
-    end
+    time_difference = DateTime.diff(finish, start, :minute)
+    time_difference >= minutes
   end
 end
 ```
