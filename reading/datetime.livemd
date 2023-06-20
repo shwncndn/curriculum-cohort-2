@@ -117,10 +117,6 @@ IO.inspect(time.second, label: "second")
 [DateTime](https://hexdocs.pm/elixir/DateTime.html) is a hybrid of [Date](https://hexdocs.pm/elixir/Date.html) and [Time](https://hexdocs.pm/elixir/Time.html), so it can represent both a calendar day, and a time of day. The [DateTime](https://hexdocs.pm/elixir/DateTime.html) module contains functionality related to datetimes. The [DateTime](https://hexdocs.pm/elixir/DateTime.html) struct stores fields to represent both date values, and time values.
 
 ```elixir
-{:ok, datetime} = DateTime.new()
-```
-
-```elixir
 {:ok, datetime} = DateTime.new(date, time)
 
 IO.inspect(datetime.year, label: "year")
@@ -148,6 +144,10 @@ date = ~D[2000-10-01]
 time = ~T[12:30:10]
 # The Z Offset Specifies The Timezone Offset. Z Is Zero For UTC.
 datetime = ~U[2000-10-01 12:30:10Z]
+```
+
+```elixir
+
 ```
 
 ## Timezones
@@ -241,6 +241,10 @@ Map.from_struct(naive_datetime)
 As a shorter syntax, it's common to use the `~T` sigil for the [Time](https://hexdocs.pm/elixir/Time.html) struct and the `~D` sigil for the [Date](https://hexdocs.pm/elixir/Date.html) struct.
 
 ```elixir
+{:ok}
+```
+
+```elixir
 {:ok, datetime} = DateTime.new(~D[2022-06-24], ~T[12:30:00])
 ```
 
@@ -263,6 +267,10 @@ datetime.year
 ```
 
 ## Display The Current Date
+
+```elixir
+Calendar.strftime(DateTime.utc_now(), "%y-%m")
+```
 
 When you want to display time information you can use the [Calendar](https://hexdocs.pm/elixir/Calendar.html) module's `strftime/3` function.
 
@@ -337,7 +345,10 @@ DateTime.new!(Date.new!(1938, 4, 19), Time.new!(12, 0, 0))
 Enter your solution below.
 
 ```elixir
-
+# Function method
+{:ok, date} = Date.new(1938, 4, 19)
+{:ok, time} = Time.new(12, 00, 00, 00)
+{:ok, datetime} = DateTime.new(date, time)
 ```
 
 If you solved the challenge above using sigils, complete it again using functions. If you solved the challenge using functions, then complete it again using sigils.
@@ -345,7 +356,10 @@ If you solved the challenge above using sigils, complete it again using function
 Enter your new solution below.
 
 ```elixir
-DateTime.new!(~D[1938-04-18])
+# Sigil method
+~D[1938-04-19]
+~T[12:00:00]
+~U[1938-04-19 12:00:00Z]
 ```
 
 Create a [DateTime](https://hexdocs.pm/elixir/DateTime.html) for today at the current time in universal time.
@@ -362,7 +376,10 @@ DateTime.utc_now()
 Enter your solution below.
 
 ```elixir
+{:ok, date} = Date.new(2023, 6, 19)
+{:ok, time} = Time.new(8, 45, 00, 00)
 
+{:ok, datetime} = DateTime.new(date, time)
 ```
 
 Use [DateTime.add/4](https://hexdocs.pm/elixir/DateTime.html#add/4) to add one day to the current [DateTime](https://hexdocs.pm/elixir/DateTime.html). This creates a new [DateTime](https://hexdocs.pm/elixir/DateTime.html) for tomorrow at the current time.
@@ -380,7 +397,7 @@ DateTime.add(DateTime.utc_now(), day_in_seconds)
 Enter your solution below
 
 ```elixir
-
+DateTime.add(datetime, 1, :day)
 ```
 
 Use [DateTime.compare/2](https://hexdocs.pm/elixir/DateTime.html#compare/2) to compare the [DateTime](https://hexdocs.pm/elixir/DateTime.html) below with the current [DateTime](https://hexdocs.pm/elixir/DateTime.html). The `date` below should be `:lt` (less than) the current [DateTime](https://hexdocs.pm/elixir/DateTime.html).
@@ -398,7 +415,10 @@ DateTime.compare(date, DateTime.utc_now())
 Enter your solution below.
 
 ```elixir
-date = DateTime.new!(~D[2020-01-01], ~T[12:00:00])
+current_date = DateTime.new!(~D[2023-06-19], ~T[08:45:00])
+example_date = DateTime.new!(~D[2020-01-01], ~T[12:00:00])
+
+DateTime.compare(example_date, current_date)
 ```
 
 Use [DateTime.diff/3](https://hexdocs.pm/elixir/DateTime.html#diff/3) to determine how many seconds are between `2000-01-01` and `2010-01-01`.
@@ -418,7 +438,10 @@ DateTime.diff(finish, start)
 Enter your solution below.
 
 ```elixir
+date_1 = DateTime.new!(~D[2000-01-01], ~T[12:00:00])
+date_2 = DateTime.new!(~D[2010-01-01], ~T[12:00:00])
 
+DateTime.diff(date_2, date_1, :second)
 ```
 
 ## Timex
@@ -441,6 +464,60 @@ You can find the full list of available timezones using `Tzdata.zone_list/0`.
 
 ```elixir
 Tzdata.zone_list()
+
+[
+  "Africa/Abidjan",
+  "Africa/Accra",
+  "Africa/Addis_Ababa",
+  "Africa/Algiers",
+  "Africa/Asmara",
+  "Africa/Asmera",
+  "Africa/Bamako",
+  "Africa/Bangui",
+  "Africa/Banjul",
+  "Africa/Bissau",
+  "Africa/Blantyre",
+  "Africa/Brazzaville",
+  "Africa/Bujumbura",
+  "Africa/Cairo",
+  "Africa/Casablanca",
+  "Africa/Ceuta",
+  "Africa/Conakry",
+  "Africa/Dakar",
+  "Africa/Dar_es_Salaam",
+  "Africa/Djibouti",
+  "Africa/Douala",
+  "Africa/El_Aaiun",
+  "Africa/Freetown",
+  "Africa/Gaborone",
+  "Africa/Harare",
+  "Africa/Johannesburg",
+  "Africa/Juba",
+  "Africa/Kampala",
+  "Africa/Khartoum",
+  "Africa/Kigali",
+  "Africa/Kinshasa",
+  "Africa/Lagos",
+  "Africa/Libreville",
+  "Africa/Lome",
+  "Africa/Luanda",
+  "Africa/Lubumbashi",
+  "Africa/Lusaka",
+  "Africa/Malabo",
+  "Africa/Maputo",
+  "Africa/Maseru",
+  "Africa/Mbabane",
+  "Africa/Mogadishu",
+  "Africa/Monrovia",
+  "Africa/Nairobi",
+  "Africa/Ndjamena",
+  "Africa/Niamey",
+  "Africa/Nouakchott",
+  "Africa/Ouagadougou",
+  "Africa/Porto-Novo",
+  "Africa/Sao_Tome",
+  ...
+]
 ```
 
 Many websites host the full list of timezones such as [timezonedb.com](https://timezonedb.com/time-zones)
@@ -453,7 +530,10 @@ Use [Timex.now/1](https://hexdocs.pm/timex/Timex.html#now/1) to create a datetim
 to ensure it is correct.
 
 ```elixir
+current_tz = Timex.now("America/New_York")
+local_time = DateTime.new!(~D[2023-06-19], ~T[09:15:00])
 
+DateTime.compare(local_time, current_tz)
 ```
 
 ## Further Reading
