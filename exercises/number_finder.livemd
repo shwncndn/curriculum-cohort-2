@@ -79,7 +79,37 @@ defmodule NumberFinder do
     iex> NumberFinder.smallest([2, 2, 3, 4, 10, 20, -3])
     -3
   """
+
+  # 1. input: List of numbers       output: smallest number, largest number
+
+  # 2. Identify the type of problem: reduce
+
+  # 3. Define the initial accumulator: 2
+
+  # 4/5. Define steps of enumeration/Define the desired accumulator (for each step)
+
+  # 2 (desired accumulator: 2)
+  # 3 (desired accumulator: 2)
+  # 1 (desired accumulator: 1)
+
+  # acc = 2 
+  # elem = 3
+  # result = 2
+
+  # min(acc, elem)
+
+  # number_list = [2,3,1]
+
+  # Enum.reduce(number_list, fn int, acc -> min(int, acc) end)
+
+  # 6. Solve one step of the enumeration (at a time)
+
+  # [2,3,1]
+
+  # 2 and 2: 2
+
   def smallest(number_list) do
+    Enum.reduce(number_list, fn int, acc -> min(int, acc) end)
   end
 
   @doc """
@@ -95,8 +125,12 @@ defmodule NumberFinder do
     20
   """
   def largest(number_list) do
+    Enum.reduce(number_list, fn int, acc -> max(int, acc) end)
   end
 end
+
+NumberFinder.smallest([2, 3, 1, 10, 5]) |> IO.inspect()
+NumberFinder.largest([2, 3, 1, 10, 5]) |> IO.inspect()
 ```
 
 ## Commit Your Progress
