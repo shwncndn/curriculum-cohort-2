@@ -230,13 +230,17 @@ String.graphemes("é")
 Use [String.graphemes/1](https://hexdocs.pm/elixir/String.html#graphemes/1) to convert the [woman fire fighter](https://emojipedia.org/woman-firefighter/) emoji 👩‍🚒 to a list of graphemes.
 
 ```elixir
+String.graphemes("👩")
+```
 
+```elixir
+String.graphemes("👩‍🚒")
 ```
 
 Use [String.codepoints/1](https://hexdocs.pm/elixir/String.html#codepoints/1) to convert the emoji 👩‍🚒 into a list of codepoints. You'll notice it's actually a combination of the 👩 and 🚒 emojis.
 
 ```elixir
-
+String.codepoints("👩‍🚒")
 ```
 
 ## Hexadecimal
@@ -305,7 +309,7 @@ The codepoint for `e` is `101`
 And the hexadecimal value `0x65` represents `101`. So, `\u0065` corresponds to the code point for `"e"`.
 
 ```elixir
-0x65 = ?e
+0x65 == ?e
 ```
 
 Which is why `"\u0065"` is the character `"e"`.
@@ -328,7 +332,7 @@ Use hexadecimal `0x` syntax to represent the number `15`.
 </details>
 
 ```elixir
-
+0xF
 ```
 
 ## Bitstrings
@@ -428,7 +432,7 @@ Convert the alphabet `"abcdefghijklmnopqrstuvwxyz"` to a charlist, then inspect 
 </details>
 
 ```elixir
-
+String.to_charlist("abcdefghijklmnopqrstuvwxyz")
 ```
 
 ## Further Reading
