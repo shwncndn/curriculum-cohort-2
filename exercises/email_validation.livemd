@@ -104,7 +104,10 @@ defmodule Email do
     iex> Email.valid?("string@string.")
     false
   """
+
+  # Input: email    Output: Truthy/falsy value reflecting validity of input as email address
   def valid?(email) do
+    Regex.match?(~r/\w+@+\w+\.+\w+/, email)
   end
 end
 ```
