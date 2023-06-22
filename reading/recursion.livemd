@@ -153,13 +153,13 @@ You'll notice the **Process** memory consumption will increase, and eventually, 
 You may need to click the **Connect** button to reconnect the Elixir runtime.
 
 ```elixir
-# defmodule Body Do
-#   def recursion([head | tail]) Do
-#     recursion(tail ++ tail) ++ [head]
-#   end
-# end
+defmodule Body Do
+  def recursion([head | tail]) Do
+    recursion(tail ++ tail) ++ [head]
+  end
+end
 
-# Body.recursion([1,2,3])
+Body.recursion([1,2,3])
 ```
 
 Make sure you comment out the code above, otherwise Livebook will keep disconnecting.
@@ -187,7 +187,9 @@ defmodule RecursiveSum do
   end
 end
 
-RecursiveSum.sum([1, 2, 3], 0)
+RecursiveSum.sum([1, 2, 3])
+
+# removal of accumulator defaults to 0 (\\ 0) and still returns 6
 ```
 
 We enumerate through the list by recursively calling `sum/2` on the tail of the list and building
@@ -260,7 +262,35 @@ end
 
 ```elixir
 defmodule CountDown do
+  def count(0), do: 0
+
+  def count(integers) do
+    IO.puts(integers)
+    count(integers - 1)
+  end
 end
+
+CountDown.count(5)
+
+# Calling IO.puts after the recursive count call results in the list printing 
+# in ascending rather than descending order
+
+# defmodule CountDown do
+#   def count(0), do: 0
+
+#   def count(integers) do
+#     count(integers - 1)
+#     IO.puts(integers) 
+#   end
+# end
+
+# 1
+# 2
+# 3
+# 4
+# 5
+
+CountDown.count(5)
 ```
 
 ### Your Turn
@@ -322,7 +352,10 @@ end
 </details>
 
 ```elixir
+# Ask Brooklin in class
+
 defmodule CountBetween do
+  def count([], accumulator)
 end
 ```
 
