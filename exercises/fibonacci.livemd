@@ -101,9 +101,30 @@ defmodule Fibonacci do
     iex> Fibonacci.of(20)
     6765
   """
+
+  # fib(n) = fib(n-1) + (n-2)  
+  # input: integer    output: fib sequence result of that integer
+  # using tail-recursion
+  # include a base case
+  # fib of 5:
+  # 0 + 1 = 2
+  # 1 + 2 = 3
+  # 2 + 3 = 5
+  # 3 + 5 = 8
+  # etc
+
+  # fib sequence is adding the last number in the addition equation to  
+  # the result of that addition equation
+  # 
+
+  def of(0), do: 0
+
   def of(n) do
+    n - 1 + of(n - 2)
   end
 end
+
+Fibonacci.of(3)
 ```
 
 ## Commit Your Progress
