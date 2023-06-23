@@ -215,7 +215,7 @@ provide utilities for working with money.
 In the Elixir cell below, enter some floating-point addition that returns an unexpected result.
 
 ```elixir
-
+2.5 + 143.35
 ```
 
 ## Arithmetic Operators
@@ -348,7 +348,7 @@ You can multiply integers and floats both positive and negative in combination, 
 In the Elixir cell below, multiply two massive numbers together.
 
 ```elixir
-
+2_305_982_134 * 2_350_923_741_234
 ```
 
 ## Division
@@ -390,13 +390,13 @@ In the Elixir cell below, divide `223` by `71` using `/` to get a nice slice of 
 should be close to `3.14`.
 
 ```elixir
-
+223 / 71
 ```
 
 Divide `100` by `3` using `div`. Your answer should be `33`.
 
 ```elixir
-
+div(100, 3)
 ```
 
 ## Exponents
@@ -432,7 +432,7 @@ In the Elixir cell below, Use the `**` operator to determine `10` to the power o
 </details>
 
 ```elixir
-
+10 ** 214
 ```
 
 ## BEDMAS
@@ -508,7 +508,7 @@ Use brackets `()` to alter the return value of the expression below to be `200` 
 </details>
 
 ```elixir
-10 + 10 * 10
+(10 + 10) * 10
 ```
 
 ## Remainder
@@ -601,7 +601,7 @@ rem(10, 3)
 Enter your solution below.
 
 ```elixir
-
+rem(10, 3)
 ```
 
 ## Further Reading
