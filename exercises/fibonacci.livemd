@@ -67,10 +67,21 @@ end
 Implement the `Fibonacci` module as documented.
 
 ```elixir
+#    def of(0), do: 0
+
+# #   def of(n) do
+# #     of(n - 1) + of(n - 2)
+# #   end
+# # end
+```
+
+```elixir
 defmodule Fibonacci do
   @moduledoc """
   Documentation for the `Fibonacci` module.
   """
+
+  #  
 
   @doc """
   Generate the nth fibonacci number.
@@ -102,6 +113,13 @@ defmodule Fibonacci do
     6765
   """
 
+  def of(0), do: 0
+  def of(1), do: 1
+
+  def of(n) do
+    of(n - 1) + of(n - 2)
+  end
+
   # fib(n) = fib(n-1) + (n-2)  
   # input: integer    output: fib sequence result of that integer
   # using tail-recursion
@@ -116,15 +134,9 @@ defmodule Fibonacci do
   # fib sequence is adding the last number in the addition equation to  
   # the result of that addition equation
   # 
-
-  def of(0), do: 0
-
-  def of(n) do
-    n - 1 + of(n - 2)
-  end
 end
 
-Fibonacci.of(3)
+Fibonacci.of(20)
 ```
 
 ## Commit Your Progress

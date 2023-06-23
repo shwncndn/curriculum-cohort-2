@@ -265,32 +265,20 @@ defmodule CountDown do
   def count(0), do: 0
 
   def count(integers) do
-    IO.puts(integers)
+    IO.inspect(integers, label: "push")
     count(integers - 1)
+    IO.inspect(integers, label: "pop")
   end
 end
 
 CountDown.count(5)
 
-# Calling IO.puts after the recursive count call results in the list printing 
-# in ascending rather than descending order
-
-# defmodule CountDown do
-#   def count(0), do: 0
-
-#   def count(integers) do
-#     count(integers - 1)
-#     IO.puts(integers) 
-#   end
-# end
-
-# 1
-# 2
-# 3
-# 4
-# 5
-
-CountDown.count(5)
+# count(5)
+# count(4)
+# count(3)
+# count(2)
+# count(1)
+# 0
 ```
 
 ### Your Turn
