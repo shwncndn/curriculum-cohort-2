@@ -574,6 +574,10 @@ In the Elixir cell below
 
 ```
 
+```elixir
+Map.update(%{count: 1}, :count, fn value -> value * 2 end)
+```
+
 ## Commit Your Progress
 
 DockYard Academy now recommends you use the latest [Release](https://github.com/DockYard-Academy/curriculum/releases) rather than forking or cloning our repository.
@@ -612,3 +616,7 @@ We will accept applications for the June-August 2023 cohort soon.
 <i class="ri-arrow-right-fill"></i>
 </div>
 </div>
+
+```elixir
+Map.update(%{count: 1}, :count, fn value -> value * 2 end)
+```

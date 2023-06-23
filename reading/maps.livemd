@@ -205,6 +205,8 @@ map[:hello]
 
 ```elixir
 map = %{hello: "world"}
+map.hello
+# map = %{hello: "world"}[:hello]
 ```
 
 ### Updating Maps
@@ -215,6 +217,10 @@ You can update values in a map using `%{initial_map | updated_values}` syntax li
 initial = %{key: "value"}
 
 %{initial | key: "new value"}
+
+# test_map = %{name: "Shawn"}
+
+# %{test_map | name: "Shawn Condon Jr"}
 ```
 
 Elixir does not allow you to mutate values. That means
@@ -265,7 +271,9 @@ todo = %{title: "finish maps exercise", completed: false}
 </details>
 
 ```elixir
+todo = %{title: "Shawn's TODO", completed: "something"}
 
+updated_todo = %{todo | completed: "something else"}
 ```
 
 ## Pattern Matching
@@ -285,6 +293,23 @@ one
 ```
 
 This also works with non-atom key maps.
+
+```elixir
+defmodule Grade do
+
+    def letter_grade(integer) do
+      cond do
+        integer >= 86 and integer <= 100 -> "A"
+        integer >= 72 and integer <= 85 -> "B"
+        integer >= 62 and integer <= 71 -> "C"
+        integer >= 51 and integer 61 <= -> "D"
+        integer >= 0 and integer <= 50 -> "F"
+        true -> "Please return a valid score"
+      end
+    end
+  end
+Grade.letter_grade(99)
+```
 
 ```elixir
 %{"hello" => world} = %{"hello" => "world"}

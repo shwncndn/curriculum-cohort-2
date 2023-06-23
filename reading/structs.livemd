@@ -55,6 +55,20 @@ We use the `defstruct` keyword to define the allowed keys in our struct. Instanc
 Here's an example struct called `StructName`. The name `StructName` could be any valid module name. We define `:key1`, `:key2`, and `:key3` keys for the struct. Keys in a struct should always be atoms, but they can be any valid atom.
 
 ```elixir
+defmodule Post do
+  defstruct [:title, :content]
+end
+```
+
+```elixir
+%Post{}
+```
+
+```elixir
+%Post{title: "student"}
+```
+
+```elixir
 defmodule StructName do
   defstruct [:key1, :key2, :key3]
 end
