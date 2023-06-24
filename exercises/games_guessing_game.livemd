@@ -71,7 +71,25 @@ Guess a number between 1 and 10: 1
 Incorrect!
 ```
 
-<!-- livebook:{"break_markdown":true} -->
+```elixir
+defmodule Games.GuessingGame do
+  def play do
+    number = Enum.random(1..10)
+
+    guess =
+      IO.inspect(IO.gets("Guess a number between 1 and 10: "))
+      |> String.trim()
+      |> String.to_integer()
+      |> IO.inspect()
+
+    cond do
+      guess == number -> "You win"
+      guess >= 1 and guess <= 10 and guess != IO.inspect(number) -> "Incorrect"
+      true -> "Pick a number between 1"
+    end
+  end
+end
+```
 
 ### Bonus: Re-Attempt
 

@@ -26,6 +26,6 @@ defmodule Review.Enumeration do
     8
     """
     def sum_evens(list) do
-      Enum.reduce(list, fn int, acc -> int + acc end)
+      ∏
     end
   end
