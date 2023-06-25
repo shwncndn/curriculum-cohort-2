@@ -126,13 +126,81 @@ We can use the [assert/1](https://hexdocs.pm/ex_unit/ExUnit.Assertions.html#asse
 ```elixir
 ExUnit.start(auto_run: false)
 
+defmodule OneMoreTimeTest do
+  use ExUnit.Case
+
+  test "one more time" do
+    assert true
+    assert !false
+    assert nil == nil
+  end
+end
+
+ExUnit.run()
+```
+
+```elixir
+ExUnit.start(auto_run: false)
+
+defmodule FinalExampleTest do
+  use ExUnit.Case
+
+  test "final example test" do
+    assert true
+    assert !false
+    assert 1 == 1.0
+    assert 1 === 1
+    assert !nil
+  end
+end
+
+ExUnit.run()
+```
+
+```elixir
+ExUnit.start(auto_run: false)
+
+defmodule SecondExampleTest do
+  use ExUnit.Case
+
+  test "second example test" do
+    assert true
+    assert %{}
+    assert 55 < 56
+    assert !false
+    assert :test
+  end
+end
+
+ExUnit.run()
+```
+
+```elixir
+ExUnit.start(auto_run: false)
+
+defmodule ShawnExampleTest do
+  use ExUnit.Case
+
+  test "assert examples" do
+    assert true
+    assert 5 > 3
+    assert :shawn
+  end
+end
+
+ExUnit.run()
+```
+
+```elixir
+ExUnit.start(auto_run: false)
+
 defmodule AssertExampleTest do
   use ExUnit.Case
 
   test "assert examples" do
     assert true
     assert fn -> 2 end
-    assert []
+    assert true
     assert 1
     assert %{}
   end
@@ -158,6 +226,21 @@ ExUnit.run()
 ```
 
 [assert/2](https://hexdocs.pm/ex_unit/ExUnit.Assertions.html#assert/2) accepts a message as the second argument, which will display a message if the test fails.
+
+```elixir
+ExUnit.start(auto_run: false)
+
+defmodule AssertionMessageTest do
+  use ExUnit.Case
+
+  test "another failing example of assertion test" do
+    assert true
+    assert false, "Just failed again"
+  end
+end
+
+ExUnit.run()
+```
 
 ```elixir
 ExUnit.start(auto_run: false)
@@ -229,6 +312,28 @@ flowchart LR
 ```
 
 ```elixir
+defmodule TripleNumber do
+  def mult(integer) do
+    integer * 3
+  end
+end
+```
+
+```elixir
+ExUnit.start(auto_run: false)
+
+defmodule TripleNumberTest do
+  use ExUnit.Case
+
+  test "mult/1" do
+    assert TripleNumber.mult(13) == 39
+  end
+end
+
+ExUnit.run()
+```
+
+```elixir
 defmodule Number do
   def double(number) do
     number * 2
@@ -282,6 +387,21 @@ The test-based match operator `=~` can test if a string contains a value.
 ```elixir
 string = "hello world"
 string =~ "hello"
+```
+
+```elixir
+ExUnit.start(auto_run: false)
+
+defmodule SecondStringContainsTest do
+  use ExUnit.Case
+
+  test "second test of string contains" do
+    string = "Welcome aboard"
+    string =~ "Shawn"
+  end
+end
+
+ExUnit.run()
 ```
 
 ```elixir
