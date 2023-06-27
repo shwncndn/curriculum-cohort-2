@@ -170,6 +170,10 @@ Regex.scan(~r/\d/, "Example with 1234 digits")
 ```
 
 ```elixir
+Regex.scan(~r/\w{5}/, "aaaaa")
+```
+
+```elixir
 Regex.scan(~r/\w/, "Example with 1234 digits")
 ```
 
