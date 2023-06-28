@@ -77,7 +77,39 @@ You're going to create a full test suite for the wordle game. Write (at least) t
 > 
 > Be warned, this is a **hard** bonus challenge that significantly increases the complexity of the solution. Consider solving the exercise without this edge-case first.
 
-<!-- livebook:{"break_markdown":true} -->
+```elixir
+# def play() do
+
+#     guess =
+#       IO.inspect(IO.gets("Enter a five letter word: "))
+
+# {guess, answer}
+# |> String.graphemes()
+# |> Enum.map({letter_of_guess, letter_of_answer}, fn {letter_of_guess, letter_of_answer} -> 
+
+# end)
+
+# letter_of_guess = letter_of_answer -> :green
+# letter_of_guess != letter_of_answer -> 
+
+#     if letter_of_guess in answer do
+#     :yellow
+#     if letter_of_guess not in answer do
+#     :grey
+
+guess_chars = String.graphemes(guess)
+answer_chars = String.graphemes(answer)
+
+# Enumerate over both lists of characters
+
+# Compare answer letter and guess letter
+# green when correct letter in correct position
+# yellow when correct letter in incorrect position
+# grey when not in word
+# when letter in word -> :yellow
+# when letter not in word -> :grey
+# when letter in word and correct position -> :green
+```
 
 ### Feedback/0
 
