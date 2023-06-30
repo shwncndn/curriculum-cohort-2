@@ -78,6 +78,50 @@ You're going to create a full test suite for the wordle game. Write (at least) t
 > Be warned, this is a **hard** bonus challenge that significantly increases the complexity of the solution. Consider solving the exercise without this edge-case first.
 
 ```elixir
+# user_guess = ["f","i","r","s","t"]
+# game_word = ["h","e","l","l","o"]
+
+# list_zip = IO.inspect(Enum.zip(user_guess, game_word))
+
+# Enum.map(list_zip, fn {guess_elem, game_word_elem} ->
+# guess_elem == game_word_elem end)
+
+# results in all false
+
+user_guess = ["f", "i", "r", "s", "t"]
+game_word = ["f", "i", "x", "e", "d"]
+
+list_zip = Enum.zip(user_guess, game_word)
+
+cond do
+elem1 == elem2 -> :green {"f", "f"}
+elem1 != elem2 and not in word -> :grey {"s", "e"}
+elem != elem2 and in word -> :yellow 
+
+
+# results in true, true, false, false, false
+
+# user_guess = ["f","i","r","s","t"]
+# game_word = ["f","i","r","s","t"]
+
+# list_zip = IO.inspect(Enum.zip(user_guess, game_word))
+
+# Enum.map(list_zip, fn {guess_elem, game_word_elem} ->
+# guess_elem == game_word_elem end)
+```
+
+```elixir
+# split our strings into lists of characters
+# enumerate through the characters
+# compare each character
+# "a" == "a" same character, same position -> :green
+# "a, 1" "a, 2" same character, different position -> :yellow
+# character is in the word
+# "a" != "b" different character, different position -> :grey
+# character not in word
+```
+
+```elixir
 # def play() do
 
 #     guess =
@@ -97,8 +141,18 @@ You're going to create a full test suite for the wordle game. Write (at least) t
 #     if letter_of_guess not in answer do
 #     :grey
 
-guess_chars = String.graphemes(guess)
-answer_chars = String.graphemes(answer)
+guess = "first"
+answer = "third"
+
+IO.inspect(guess_chars = String.graphemes(guess))
+IO.inspect(answer_chars = String.graphemes(answer))
+
+guess_chars == answer_chars
+
+#  cond do
+#    guess == answer -> :green
+#    guess 
+#  end
 
 # Enumerate over both lists of characters
 

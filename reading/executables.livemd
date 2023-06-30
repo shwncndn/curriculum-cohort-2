@@ -165,6 +165,15 @@ Good evening!
 
 Create an `--upcase` flag, which upcases the greeting so `"Good morning!` becomes `GOOD MORNING!`.
 
+```elixir
+defmodule Greeting do
+  def main(args) do
+    {opts, _word, _errors} = OptionParser.parse(args, switches: [upcase: :string])
+    IO.puts(String.upcase("Good #{opts[:time] || "morning"}!"))
+  end
+end
+```
+
 ## Commit Your Progress
 
 DockYard Academy now recommends you use the latest [Release](https://github.com/DockYard-Academy/curriculum/releases) rather than forking or cloning our repository.

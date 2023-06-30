@@ -152,7 +152,13 @@ We can use the match operator anytime we have a value bound to a parameter or va
 Create a `case` statement that will return the first element in a 2 element tuple, or the first element in 2 element a list.
 
 ```elixir
-
+case ["first", "second", "third", "fourth", "fifth", "sixth", "seventh"] do
+  [a, b | rest] = number_word_list ->
+    IO.inspect(a, label: "1")
+    IO.inspect([a, b], label: "1 and 2")
+    IO.inspect(rest, label: "3 through 7")
+    IO.inspect(number_word_list, label: "entire list")
+end
 ```
 
 Use pattern matching to ensure the `Check.must_have_elements!/1` function returns true when called with a list that has more than one element and otherwise causes a [FunctionClauseError](https://hexdocs.pm/elixir/FunctionClauseError.html).
@@ -186,7 +192,7 @@ defmodule Check do
       iex> Check.must_have_elements!([])
       ** (FunctionClauseError) no function clause matching in Check.must_have_elements!/1
   """
-  def must_have_elements!(list) do
+  def must_have_elements!([head | tail] = list) do
     true
   end
 end
@@ -195,6 +201,17 @@ end
 ## Pattern Matching In A Function Clause
 
 We can omit the `=` when pattern matching in a function.
+
+```elixir
+defmodule NameAge do
+  def inspect([name, age]) do
+    IO.inspect(name, label: "Student name")
+    IO.inspect(age, label: "Student age")
+  end
+end
+
+NameAge.inspect(["Shawn", 31])
+```
 
 ```elixir
 defmodule Coords do
@@ -210,6 +227,22 @@ Coords.inspect({1, 2})
 ### Multi-Clause Functions
 
 We can use pattern matching with multi-clause functions. This essentially uses multi-clause functions to replicate the same behavior as a single function with a case statement.
+
+```elixir
+defmodule MyOwnExample do
+  def run(arg) do
+    case arg do
+      [] -> "first"
+      [_] -> "second"
+      [_, _] -> "third"
+    end
+  end
+end
+
+IO.inspect(MyOwnExample.run([]))
+IO.inspect(MyOwnExample.run([100]))
+IO.inspect(MyOwnExample.run([200, 300]))
+```
 
 ```elixir
 defmodule SingleCaseExample do
@@ -291,14 +324,31 @@ defmodule Greeter do
       iex> Greeter.hello(["Swamy", "Jeff", "Jeremy"])
       "Hello everyone!"
   """
-  def hello(names) do
+  def hello([head | tail] = names) do
+    case names do
+      [_first] -> "Hi #{_first}!"
+      [_first, _second] -> "Hi #{_first}, Hello #{_second}!"
+      [_first, _second, _third] -> "Hello everyone!"
+    end
   end
 end
+
+Greeter.hello(["Russel", "Icia", "Stephen"])
 ```
 
 ## Pattern Matching In Enumeration
 
 We can combine pattern matching in a function with enumeration to achieve polymorphic behavior with an enumerable data structure.
+
+```elixir
+enumerable = [fizz: 3, buzz: 5, fizzbuzz: 15]
+
+Enum.map(enumerable, fn
+  {:fizz, integer} -> rem(integer, 3) == 0
+  {:buzz, integer} -> rem(integer, 5) == 0
+  {:fizzbuzz, integer} -> rem(integer, 3) == 0 and rem(integer, 5) == 0
+end)
+```
 
 ```elixir
 enumerable = [double: 1, double: 2, triple: 3, quadruple: 4]
@@ -311,6 +361,16 @@ end)
 ```
 
 The same can be done with other [Enum](https://hexdocs.pm/elixir/Enum.html) functions that accept a callback function such as [Enum.filter/2](https://hexdocs.pm/elixir/Enum.html#filter/2) and [Enum.reduce/3](https://hexdocs.pm/elixir/Enum.html#reduce/3).
+
+```elixir
+enumerable = [add: 1, subtract: 2, add: 4, multiply: 3]
+
+Enum.reduce(enumerable, 0, fn
+  {:add, value}, acc -> acc + value
+  {:subtract, value}, acc -> acc - value
+  {:multiply, value}, acc -> acc * value
+end)
+```
 
 ```elixir
 enumerable = [add: 1, subtract: 2, add: 4, multiply: 3]
@@ -354,7 +414,12 @@ end)
 </details>
 
 ```elixir
+list = [{:double, 2}, {:halve, 10}, {:double, 4}]
 
+Enum.map(list, fn
+  {:double, integer} -> integer * 2
+  {:halve, integer} -> div(integer, 2)
+end)
 ```
 
 ## Pattern Matching Vs. If
