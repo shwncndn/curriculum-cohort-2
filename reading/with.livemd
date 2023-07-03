@@ -88,7 +88,7 @@ end
 Change the value of `user` below to hit every case in the `else` clause (one at a time.)
 
 ```elixir
-user = %{name: "Jon", is_admin: false}
+user = %{}
 
 with %{name: name, is_admin: true} <- user do
   IO.puts("admin #{name} is authorized.")
@@ -120,6 +120,12 @@ Change `value` to trigger every else clause.
 
 ```elixir
 value = "example"
+
+# Examples for each else clause triggered
+
+# value = "This string (binary) is too long and should trigger the :too_long exception"
+# value = 24
+# value = ""
 
 with {:not_binary, true} <- {:not_binary, is_binary(value)},
      {:too_long, true} <- {:too_long, String.length(value) <= 10},

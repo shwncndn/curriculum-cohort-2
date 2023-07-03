@@ -126,7 +126,7 @@ defmodule RockPaperScissors do
   end
 end
 
-RockPaperScissors.winner(:rock)
+RockPaperScissors.winner(:paper)
 ```
 
 Invalid guesses will now raise a [FunctionClauseError](https://hexdocs.pm/elixir/FunctionClauseError.html).
@@ -163,7 +163,7 @@ defmodule PolymorphicGuardExample do
   end
 end
 
-PolymorphicGuardExample.double("example")
+PolymorphicGuardExample.double(4)
 ```
 
 There are many guards available in Elixir. If you ever need a specific guard, you can refer to the [Guards](https://hexdocs.pm/elixir/Kernel.html#guards) documentation.
@@ -245,9 +245,12 @@ end
 
 ```elixir
 defmodule Say do
-  def hello(name) do
+  def hello(name) when is_binary(name) do
+    "Hello, #{name}!"
   end
 end
+
+Say.hello("Shawn")
 ```
 
 ### Your Turn
@@ -289,9 +292,12 @@ Enter your solution below.
 
 ```elixir
 defmodule Percent do
-  def display(percent) do
+  def display(percent) when is_number(percent) >= 0 when is_number(percent) <= 100 do
+    "#{percent}%"
   end
 end
+
+Percent.display(9.13)
 ```
 
 ## Further Reading

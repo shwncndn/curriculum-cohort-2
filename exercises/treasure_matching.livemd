@@ -49,15 +49,18 @@ jewel
 Use pattern matching to bind a `jewel` variable to the `"jewel"` string. Each cell should return the `jewel` variable to prove it was bound correctly.
 
 ```elixir
-[1, 2, 3, "jewel"]
+[_, _, _, jewel] = [1, 2, 3, "jewel"]
+jewel
 ```
 
 ```elixir
-%{key1: "value", key2: "jewel"}
+%{key1: value, key2: jewel} = %{key1: "value", key2: "jewel"}
+jewel
 ```
 
 ```elixir
-%{1 => "jewel"}
+%{1 => jewel} = %{1 => "jewel"}
+jewel
 ```
 
 ```elixir
@@ -65,63 +68,81 @@ Use pattern matching to bind a `jewel` variable to the `"jewel"` string. Each ce
 ```
 
 ```elixir
-%{north: %{south: %{west: %{east: "jewel"}}}}
+%{north: %{south: %{west: %{east: jewel}}}} = %{north: %{south: %{west: %{east: "jewel"}}}}
+jewel
 ```
 
 ```elixir
-[2, "jewel"]
+[integer, jewel] = [2, "jewel"]
+jewel
 ```
 
 ```elixir
-["jewel", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+[jewel | tail] = ["jewel", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+jewel
 ```
 
 ```elixir
-[1, "jewel", 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+[first, jewel | tail] = [1, "jewel", 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+jewel
 ```
 
 ```elixir
-[1, 2, "jewel", 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+[first, second, jewel | tail] = [1, 2, "jewel", 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+jewel
 ```
 
 ```elixir
-[[], [1, [2, "jewel"]]]
+[[], [1, [2, jewel]]] = [[], [1, [2, "jewel"]]]
+jewel
 ```
 
 ```elixir
-"here is the jewel"
+[_, _, _, jewel] = String.split("here is the jewel")
+jewel
 ```
 
 ```elixir
-{"jewel"}
+{jewel} = {"jewel"}
+jewel
 ```
 
 ```elixir
-{"jewel", 1}
+{jewel, one} = {"jewel", 1}
+jewel
 ```
 
 ```elixir
-{1, 2, "jewel"}
+{_, _, jewel} = {1, 2, "jewel"}
+jewel
 ```
 
 ```elixir
-["jewel"] ++ Enum.to_list(1..100)
+list = ["jewel"] ++ Enum.to_list(1..100)
+[jewel | tail] = list
+jewel
 ```
 
 ```elixir
-[key: "jewel"]
+[key: jewel] = [key: "jewel"]
+jewel
 ```
 
 ```elixir
-[south: "jewel", east: {1, 2}]
+[south: jewel, east: _] = [south: "jewel", east: {1, 2}]
+jewel
 ```
 
 ```elixir
-Enum.map(1..4, fn each -> (each == 2 && "jewel") || each end)
+[first, jewel | tail] = Enum.map(1..4, fn each -> (each == 2 && "jewel") || each end)
+jewel
 ```
 
 ```elixir
-Enum.map(1..4, &((&1 > 3 && "jewel") || &1))
+list = Enum.map(1..4, &((&1 > 3 && "jewel") || &1))
+reversed_list = Enum.reverse(list)
+[jewel | tail] = reversed_list
+jewel
 ```
 
 ## Sum
@@ -149,11 +170,29 @@ end
 </details>
 
 ```elixir
+# defmodule Sum do
+#   @moduledoc """
+#   iex> Sum.list([1, 2, 3])
+#   6
+#   """
+#   # below is the base case which gives the recursive call
+#   # a place to land and not run forever
+#   def count(0), do: 0
+
+#   """
+#     this is the recursive function call;
+#     it takes the int argument called by
+#     the count function 
+#   """
+
+#   def count(int), do: int + count(int - 1)
+# end
+
+# Sum.count([5])
+
 defmodule Sum do
-  @moduledoc """
-  iex> Sum.list([1, 2, 3])
-  6
-  """
+  def count(0), do: acc
+  def
 end
 ```
 

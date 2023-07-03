@@ -153,11 +153,22 @@ You'll notice the **Process** memory consumption will increase, and eventually, 
 You may need to click the **Connect** button to reconnect the Elixir runtime.
 
 ```elixir
+# turning this infinitely recursive function 
+# into a recursive function with a base case
+
 defmodule Body Do
+""""
+  function named recursion is splitting its called argument,
+   which is a list, into a head and a tail. 
+   This will split a list, for example, [1,2,3], into:
+   head = 1
+   tail = [2,3]
+   """
   def recursion([head | tail]) Do
     recursion(tail ++ tail) ++ [head]
   end
 end
+
 
 Body.recursion([1,2,3])
 ```

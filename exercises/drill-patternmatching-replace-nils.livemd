@@ -71,9 +71,25 @@ defmodule Replace do
   iex> Replace.nils([nil, nil, nil, nil, "5"], [1, 2, 3, 4, 5])
   [1, 2, 3, 4, "5"]
   """
+
+  # input: list1 = [1, 2, 3, nil, 5]
+  #        list2 = ["1", "2", "3", "4", "5"]
+
+  # output [1, 2, 3, "4", 5]
+
   def nils(list1, list2) do
+    zip_lists = Enum.zip(list1, list2)
+    
+    Enum.map(zip_lists, fn -> 
+      case zip_lists do
+    {nil, _} ->
+    {}
+    end)
+
   end
 end
+
+Replace.nils([1, 2, 3, nil, 5], ["1", "2", "3", "4", "5"])
 ```
 
 ## Commit Your Progress
