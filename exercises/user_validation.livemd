@@ -62,6 +62,10 @@ defmodule User do
     iex> User.validate_users(["invalid user", "invalid user", "invalid user"])
     [{:error, :not_a_user}, {:error, :not_a_user}, {:error, :not_a_user}]
   """
+
+  # input:   Any user input.
+  # output:  Returns a string of the message if provided valid input.
+
   defstruct [:name]
 
   def validate_users(users) do

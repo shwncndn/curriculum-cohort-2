@@ -100,6 +100,14 @@ end
 Implement the `Math` module as documented below.
 
 ```elixir
+# String.graphemes("babc") -- String.graphemes("bc")
+
+List.to_string(String.graphemes("babc") -- String.graphemes("bc"))
+
+# Is Enum.sum more performant than List.to_string?
+```
+
+```elixir
 defmodule Math do
   @moduledoc """
   iex> Math.add(1, 1)
@@ -120,12 +128,28 @@ defmodule Math do
   ** (FunctionClauseError) no function clause matching in Math.add/2
   """
 
-  def add(value1, value2) do
-  end
+  def add(value1, value2) when is_number(value1) and is_number(value2), do: value1 + value2
+  def add(value1, value2) when is_list(value1) and is_list(value2), do: value1 ++ value2
+  def add(value1, value2) when is_binary(value1) and is_binary(value2), do: value1 <> value2
 
-  def subtract(value1, value2) do
+  #   def
+  #   # code that requires successful results above
+  # end
+
+  def subtract(value1, value2) when is_number(value1) and is_number(value2), do: value1 - value2
+  def subtract(value1, value2) when is_list(value1) and is_list(value2), do: value1 -- value2
+
+  def subtract(value1, value2) when is_binary(value1) and is_binary(value2) do
+    List.to_string(String.graphemes(value1) -- String.graphemes(value2))
   end
 end
+
+IO.inspect(Math.add(9, 13))
+IO.inspect(Math.add([9, 13], [99, 1313]))
+IO.inspect(Math.add("nine ", "thirteen"))
+IO.inspect(Math.subtract(13, 9))
+IO.inspect(Math.subtract([1, 2, 3, 4, 5, 6, 7, 8], [4, 7]))
+IO.inspect(Math.subtract("thirteen", "ee"))
 ```
 
 ## Commit Your Progress

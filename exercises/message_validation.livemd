@@ -95,8 +95,21 @@ defmodule Message do
     iex> Message.send(123)
     ** (FunctionClauseError) no function clause matching in Message.send/1
   """
+
+  # input: user input   output: Returns a string of the message if provided valid input.
+
   defstruct [:body]
+
+  def send(message) when is_binary(message) do
+    "Sent: #{message}"
+  end
+
+  def send(message) when is_binary(message.body) do
+    "Sent: #{message.body}"
+  end
 end
+
+Message.send("Greetings")
 ```
 
 ## Commit Your Progress
