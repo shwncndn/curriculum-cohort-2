@@ -100,6 +100,19 @@ end
 
 ```elixir
 # Implementation Goes Here:
+defimpl Character, for: Barbarian do
+  def can_attack?(character, player_coord, enemy_coord)
+  p_coord_list = Tuple.to_list(player_coord)
+  e_coord_list = Tuple.to_list(enemy_coord) 
+  
+  with %Barbarian{} <- character
+         <- e_coord_list - 
+          <-
+    end
+  end
+
+
+
 
 # You May Use The Following Test Suite To Validate Your Solution.
 ExUnit.start(auto_run: false)

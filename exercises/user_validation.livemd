@@ -78,7 +78,7 @@ defmodule User do
 
         _ ->
           {:e}
-          IO.inspect(thing)
+
           :error
       end
     end)
