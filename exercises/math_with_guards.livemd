@@ -132,10 +132,6 @@ defmodule Math do
   def add(value1, value2) when is_list(value1) and is_list(value2), do: value1 ++ value2
   def add(value1, value2) when is_binary(value1) and is_binary(value2), do: value1 <> value2
 
-  #   def
-  #   # code that requires successful results above
-  # end
-
   def subtract(value1, value2) when is_number(value1) and is_number(value2), do: value1 - value2
   def subtract(value1, value2) when is_list(value1) and is_list(value2), do: value1 -- value2
 

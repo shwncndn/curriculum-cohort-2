@@ -173,24 +173,24 @@ functionality from the [Stream](https://hexdocs.pm/elixir/Stream.html) module an
 ## Performance Comparison
 
 ```elixir
-Benchee.run(
-  %{
-    "enum" => fn ->
-      1..200
-      |> Enum.map(fn each -> each * 2 end)
-      |> Enum.filter(fn each -> each <= 10 end)
-      |> Enum.take(4)
-    end,
-    "stream" => fn ->
-      1..200
-      |> Stream.map(fn each -> each * 2 end)
-      |> Stream.filter(fn each -> each <= 10 end)
-      |> Stream.take(4)
-      |> Enum.to_list()
-    end
-  },
-  memory_time: 2
-)
+# Benchee.run(
+#   %{
+#     "enum" => fn ->
+#       1..200
+#       |> Enum.map(fn each -> each * 2 end)
+#       |> Enum.filter(fn each -> each <= 10 end)
+#       |> Enum.take(4)
+#     end,
+#     "stream" => fn ->
+#       1..200
+#       |> Stream.map(fn each -> each * 2 end)
+#       |> Stream.filter(fn each -> each <= 10 end)
+#       |> Stream.take(4)
+#       |> Enum.to_list()
+#     end
+#   },
+#   memory_time: 2
+# )
 ```
 
 While the exact results may vary, you should notice that the stream runs faster and consumes less memory.
@@ -230,7 +230,11 @@ In the Elixir cell below, try refactoring this code using the [Stream](https://h
 ```
 
 ```elixir
-
+1..100
+|> Stream.map(fn each -> div(each, 2) end)
+|> Stream.map(fn each -> each * 3 end)
+|> Stream.filter(fn each -> rem(each, 2) === 0 end)
+|> Enum.to_list()
 ```
 
 ## Stream Gotchas
@@ -260,7 +264,12 @@ stream_fn = fn ->
   |> Enum.to_list()
 end
 
-enum_fn = fn -> 1..1000 |> Enum.map(&(&1 * 2)) |> Enum.map(&(&1 * 2)) |> Enum.map(&(&1 * 2)) end
+enum_fn = fn ->
+  1..1000
+  |> Enum.map(&(&1 * 2))
+  |> Enum.map(&(&1 * 2))
+  |> Enum.map(&(&1 * 2))
+end
 
 {stream_time, _result} = :timer.tc(stream_fn)
 {enum_time, _result} = :timer.tc(enum_fn)
@@ -298,11 +307,11 @@ We've used pattern matching here to demonstrate each has similar behavior.
 [{"a", 0}, {"b", 1}, {"c", 2}] = Enum.with_index(["a", "b", "c"])
 [{"a", 0}, {"b", 1}, {"c", 2}] = Stream.with_index(["a", "b", "c"]) |> Enum.to_list()
 
-["b", "c"] = Enum.drop(["a", "b", "c"], 1)
-["b", "c"] = Stream.drop(["a", "b", "c"], 1) |> Enum.to_list()
+# ["b", "c"] = Enum.drop(["a", "b", "c"], 1)
+# ["b", "c"] = Stream.drop(["a", "b", "c"], 1) |> Enum.to_list()
 
-[[1, 2], [3, 4], [5, 6], [7, 8], [9, 10]] = Enum.chunk_every(1..10, 2)
-[[1, 2], [3, 4], [5, 6], [7, 8], [9, 10]] = Stream.chunk_every(1..10, 2) |> Enum.to_list()
+# [[1, 2], [3, 4], [5, 6], [7, 8], [9, 10]] = Enum.chunk_every(1..10, 2)
+# [[1, 2], [3, 4], [5, 6], [7, 8], [9, 10]] = Stream.chunk_every(1..10, 2) |> Enum.to_list()
 ```
 
 ### Streams As Generators
@@ -430,7 +439,29 @@ end)
 </details>
 
 ```elixir
+starting_integer = 42
 
+# starting_integer
+# |> Stream.iterate(fn acc -> 
+# if rem(acc,2) == 0 do
+#   div(acc, 2)
+# else 
+#   (acc * 3) + 1
+# end
+# end)
+# |> IO.inspect()
+# |> Enum.take_while(fn int -> int != 4 end)
+# |> IO.inspect()
+
+starting_integer
+|> Stream.iterate(fn acc ->
+  cond do
+    rem(acc, 2) == 0 -> div(acc, 2)
+    rem(acc, 2) != 0 -> acc * 3 + 1
+    true -> acc
+  end
+end)
+|> Enum.take_while(fn int -> int != 4 end)
 ```
 
 ### Stream.unfold/2
@@ -491,7 +522,11 @@ end)
 </details>
 
 ```elixir
-
+3
+|> Stream.unfold(fn n ->
+  {Integer.pow(n, 3), n + 1}
+end)
+|> Enum.take(20)
 ```
 
 ## Commit Your Progress

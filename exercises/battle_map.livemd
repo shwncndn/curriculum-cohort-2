@@ -99,33 +99,90 @@ end
 </details>
 
 ```elixir
-# Implementation Goes Here:
-defimpl Character, for: Barbarian do
-  def can_attack?(character, player_coord, enemy_coord)
-  p_coord_list = Tuple.to_list(player_coord)
-  e_coord_list = Tuple.to_list(enemy_coord) 
-  
-  with %Barbarian{} <- character
-         <- e_coord_list - 
-          <-
-    end
-  end
+
+```
+
+```elixir
+# # determine the difference between the spaces on the board
+
+# enemy_coord - player_coord == {1,1} -> "can attack"
+# enemy_coord - player_coord == {1,2} -> "can attack"
+# enemy_coord - player_coord == {2,1} -> "can attack"
+# enemy_coord - player_coord == {2,2} -> "can attack"
+
+# enemy_coord - player_coord == {3,2} -> "cannot attack"
+# enemy_coord - player_coord == {2,3} -> "cannot attack"
+```
+
+```elixir
+
+    player_coord = {4, 4}
+    enemy_coord = {6, 6}
 
 
 
 
-# You May Use The Following Test Suite To Validate Your Solution.
-ExUnit.start(auto_run: false)
 
-defmodule BarbarianTests do
-  use ExUnit.Case
 
-  describe "Barbarian" do
-    test "can attack within two squares of current position" do
-      for x <- 2..6, y <- 2..6 do
-        assert Character.can_attack?(%Barbarian{}, {4, 4}, {x, y})
-      end
-    end
+
+    # too difficult, uses too many elems. Looking for variables.
+    # space_difference =
+    #   {elem(enemy_coord, 0) - elem(player_coord, 0), elem(enemy_coord, 1) - elem(player_coord, 1)}
+
+    
+
+  #   cond do
+  #     space_difference == {1, 1} -> "can attack"
+  #     space_difference == {1, 2} -> "can attack"
+  #     space_difference == {2, 1} -> "can attack"
+  #     space_difference == {2, 2} -> "can attack"
+  #     space_difference == {3, 2} -> "cannot attack"
+  #     space_difference == {2, 3} -> "cannot attack"
+  #   end
+  # end
+end
+
+TestAttack.attack({4,4},{6,6})
+```
+
+```elixir
+# # Implementation Goes Here:
+# defimpl Character, for: Barbarian do
+#   def can_attack?(character, player_coord, enemy_coord)
+#     # 
+# end
+
+# Character.can_attack?(%Barbarian{}, {4,4}, {6,6})
+# # You May Use The Following Test Suite To Validate Your Solution.
+# ExUnit.start(auto_run: false)
+
+# defmodule BarbarianTests do
+#   use ExUnit.Case
+
+#   describe "Barbarian" do
+#     test "can attack within two squares of current position" do
+#       for x <- 2..6, y <- 2..6 do
+#         assert Character.can_attack?(%Barbarian{}, {4, 4}, {x, y})
+#       end
+#     end
+
+enemy = {x, y}
+player = {a, b}
+
+x_difference = 
+y_difference =
+
+x - 4 must be 2 or less
+y - 4 must be 2 or less
+
+if x - a <= 2 and y - b <= 2 do
+ 
+else 
+  "Cannot attack that space"
+end
+
+
+cannot be greater than two squares different than current position
 
     test "cannot attack beyond two squares of current position" do
       refute Character.can_attack?(%Barbarian{}, {4, 4}, {1, 1})
@@ -141,6 +198,8 @@ defmodule BarbarianTests do
 end
 
 ExUnit.run()
+
+Character.can_attack?(%Barbarian{}, {4,4}, {6,6})
 ```
 
 ## Wizard

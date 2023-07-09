@@ -64,25 +64,21 @@ defmodule User do
   """
 
   # input:   Any user input.
-  # output:  Returns a string of the message if provided valid input.
+  # output:  Returns the message if provided valid input.
 
   defstruct [:name]
 
   def validate_users(users) do
-    Enum.map(users, fn user ->
-      with %User{name: name} <- user, true <- {:missing_name, is_binary(name)} do
-        {:ok, user}
-      else
-        false ->
-          {:error, :missing_name}
-
-        _ ->
-          {:e}
-
-          :error
-      end
-    end)
+    Enum.map(users, &validate_user/1)
   end
+
+  defp validate_user(%User{name: name} = user) when is_binary(name), do: {:ok, user}
+  # this passes the check of being a string and having a valid name
+  defp validate_user(%User{name: name} = user), do: {:error, :missing_name}
+  # this does not have an is_binary guard and will allow other data types through,
+  # triggering the {:error, :missing name clause}
+  defp validate_user(_), do: {:error, :not_a_user}
+  # anything else will match on this _ 
 end
 ```
 
