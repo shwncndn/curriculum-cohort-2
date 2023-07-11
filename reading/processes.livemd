@@ -96,6 +96,14 @@ self()
 We can `send/2` and `receive/1` messages between processes by using their **pid**. Likewise, a process can send its `self()` a message.
 
 ```elixir
+send(self(), "new message")
+
+receive do
+  "new message" -> "received"
+end
+```
+
+```elixir
 send(self(), "message")
 
 receive do
@@ -142,7 +150,7 @@ related to processes. We'll use the `alive?/1` function to show that the process
 ```elixir
 pid = spawn(fn -> IO.puts("I was called") end)
 
-Process.alive?(pid) && IO.puts("I am alive!")
+IO.puts(Process.alive?(pid)) && IO.puts("I am alive!")
 ```
 
 We can use [Process.sleep/1](https://hexdocs.pm/elixir/Process.html#sleep/1) to pause the execution and show that the spawned process dies
@@ -224,7 +232,14 @@ Spawn a linked process and crash this Elixir cell below.
 Comment out your solution when complete to avoid continuously crashing the livebook!
 
 ```elixir
+# pid3 = spawn(fn -> raise "third oops" end)
+# Process.link(pid3)
+# "I will not run"
+```
 
+```elixir
+# pid2 = spawn_link(fn -> raise "oops again" end)
+# "I will also not run"
 ```
 
 ## Message Passing
@@ -253,12 +268,26 @@ pid1 =
   end)
 ```
 
+```elixir
+test_pid =
+  spawn(fn ->
+    receive do
+      "test message" -> IO.puts("received!")
+    end
+  end)
+```
+
 Evaluate the cell above to create a process waiting to receive a message, then evaluate
 the cell below to send that process a message. You'll notice the [IO.puts/1](https://hexdocs.pm/elixir/IO.html#puts/1) logs in the cell below.
 
 As soon as the spawned process receives a message, it dies. You'll notice you can only send
 and receive a single message. You can re-evaluate the cell above and the cell below to
 repeat the example.
+
+```elixir
+send(test_pid, "test message")
+Process.alive?(test_pid)
+```
 
 ```elixir
 send(pid1, "message")
@@ -270,7 +299,12 @@ In the Elixir cell below, spawn a new process and send it a message `{:hello, "w
 `IO.puts` the message's payload where `"world"` is the payload.
 
 ```elixir
-
+my_pid =
+  spawn(fn ->
+    receive do
+      {:hello, "world"} -> IO.puts("world")
+    end
+  end)
 ```
 
 ## State
@@ -300,16 +334,32 @@ Process --> loop --> receive --> loop
 
 ```elixir
 defmodule ServerProcess do
+  # function to be called recursively in the receive block
   def loop do
     IO.puts("called #{Enum.random(1..10)}")
 
     receive do
+      # recursive function call matching on "message" 
       "message" -> loop()
     end
   end
 end
 
 server_process = spawn(fn -> ServerProcess.loop() end)
+```
+
+```elixir
+# defmodule ServerProcess do
+#   def loop do
+#     IO.puts("called #{Enum.random(1..10)}")
+
+#     receive do
+#       "message" -> loop()
+#     end
+#   end
+# end
+
+# server_process = spawn(fn -> ServerProcess.loop() end)
 ```
 
 We've used [Enum.random/1](https://hexdocs.pm/elixir/Enum.html#random/1) to show that the process continues to loop and receive messages.

@@ -57,6 +57,16 @@ end
 Implement the `Game` module as documented below.
 
 ```elixir
+# input: game data, save file
+# output: :ok 
+
+# 5 ideas:
+# save func: File.write to save file
+# save func: create game state with a variable like in the example
+# load func: 
+```
+
+```elixir
 defmodule Game do
   @moduledoc """
   Documentation for `Game`
@@ -76,14 +86,25 @@ defmodule Game do
   Save an elixir term into a given file name.
   """
   def save(data, filename) do
+    data = %{name: "Matt Murdock", level: 13, location: "New York"}
+
+    filename = File.write("daredevil_save_file", data)
   end
 
   @doc """
   Retrieve an elixir term from a given file name.
   """
   def load(filename) do
+    if File.exists?(filename) == true do
+      File.read(filename)
+      IO.puts({:ok, "#{filename} loaded successfully"})
+    else
+      IO.puts("Save file does not exist")
+    end
   end
 end
+
+Game.save(data, "daredevil_save_file") |> IO.inspect()
 ```
 
 ## Commit Your Progress

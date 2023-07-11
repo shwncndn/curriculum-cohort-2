@@ -139,7 +139,7 @@ File.ls()
 To clean up the file, uncomment the following code which should remove it.
 
 ```elixir
-# File.rm("file.txt")
+File.rm("file.txt")
 ```
 
 Now the file should no longer exist. Let's check with [File.exists?/2](https://hexdocs.pm/elixir/File.html#exists?/2).
@@ -157,7 +157,16 @@ DO NOT DELETE IMPORTANT FILES ON YOUR SYSTEM WHEN USING THE FILE MODULE
 </div>
 
 ```elixir
+File.write("example.txt", "This is an example file with example text")
+```
 
+```elixir
+File.read("example.txt")
+```
+
+```elixir
+File.cd("Desktop")
+File.ls()
 ```
 
 ## Path Module Functions
