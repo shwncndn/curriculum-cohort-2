@@ -138,9 +138,24 @@ defmodule Mailbox do
       ...> end
       "Hello!"
   """
+
   def loop(state \\ []) do
+    IO.inspect(state)
+
+    receive do
+      {:send, message} -> loop(state)
+      {:read, message} -> loop(state)
+    end
   end
 end
+
+mailbox_process = spawn(fn -> Mailbox.loop() end)
+
+IO.inspect(send(mailbox_process, {:send, "Hello!"}))
+
+IO.inspect(send(mailbox_process, {:read, self()}))
+# loop is called by the message receipt in the receive block
+# the loop defined in the function body becomes the operation of the spawned mailbox_process
 ```
 
 ## Commit Your Progress

@@ -36,6 +36,93 @@ Upon completing this lesson, a student should be able to answer the following qu
 
 * How can we test the behavior rather than the implementation of a [GenServer](https://hexdocs.pm/elixir/GenServer.html)?
 
+<!-- livebook:{"break_markdown":true} -->
+
+Directly called GenServer
+
+```elixir
+defmodule Stack do
+  use GenServer
+
+  # Callbacks
+
+  @impl true
+  def init(elements) do
+    initial_state = String.split(elements, ",", trim: true)
+    {:ok, initial_state}
+  end
+
+  @impl true
+  def handle_call(:pop, _from, state) do
+    [to_caller | new_state] = state
+    {:reply, to_caller, new_state}
+  end
+
+  @impl true
+  def handle_cast({:push, element}, state) do
+    new_state = [element | state]
+    {:noreply, new_state}
+  end
+end
+```
+
+```elixir
+# Start the server
+{:ok, pid} = GenServer.start_link(Stack, "hello,world")
+
+# This is the client
+GenServer.call(pid, :pop)
+# => "hello"
+
+GenServer.cast(pid, {:push, "elixir"})
+# => :ok
+
+GenServer.call(pid, :pop)
+# => "elixir"
+```
+
+Using the Client API
+
+```elixir
+defmodule Stack do
+  use GenServer
+
+  # Client
+
+  def start_link(default) when is_binary(default) do
+    GenServer.start_link(__MODULE__, default)
+  end
+
+  def push(pid, element) do
+    GenServer.cast(pid, {:push, element})
+  end
+
+  def pop(pid) do
+    GenServer.call(pid, :pop)
+  end
+
+  # Server (callbacks)
+
+  @impl true
+  def init(elements) do
+    initial_state = String.split(elements, ",", trim: true)
+    {:ok, initial_state}
+  end
+
+  @impl true
+  def handle_call(:pop, _from, state) do
+    [to_caller | new_state] = state
+    {:reply, to_caller, new_state}
+  end
+
+  @impl true
+  def handle_cast({:push, element}, state) do
+    new_state = [element | state]
+    {:noreply, new_state}
+  end
+end
+```
+
 ## Testing GenServers
 
 We've seen how to perform tests on a module and function, but how do you test something stateful like a process? Let's consider how we could test a simple `CounterServer` process that should store an integer in it's state and increment the value.
@@ -218,10 +305,11 @@ defmodule CountDown do
 
   def start_link(_opts) do
     # Implementation
+    GenServer.start_link(__MODULE__, default)
   end
 
   def decrement(pid) do
-    # Implementation
+    GenServer.call(pid, :decrement)
   end
 
   # Server
@@ -233,12 +321,12 @@ defmodule CountDown do
 
   @impl true
   def handle_call(:get_count, _from, state) do
-    # Implementation
+    {:reply, state.count, state}
   end
 
   @impl true
   def handle_call(:decrement, _from, state) do
-    # Implementation
+    {:reply, state + 1, [state | state + 1]}
   end
 end
 

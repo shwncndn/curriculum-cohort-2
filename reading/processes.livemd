@@ -389,24 +389,24 @@ CounterProcess --> loop --0--> receive --1--> loop
 ```
 
 ```elixir
-defmodule CounterProcess do
-  def loop(state \\ 0) do
-    IO.inspect(state, label: "counter")
+# defmodule CounterProcess do
+#   def loop(state \\ 0) do
+#     IO.inspect(state, label: "counter")
 
-    receive do
-      :increment -> loop(state + 1)
-    end
-  end
-end
+#     receive do
+#       :increment -> loop(state + 1)
+#     end
+#   end
+# end
 
-counter_process = spawn(fn -> CounterProcess.loop() end)
+# counter_process = spawn(fn -> CounterProcess.loop() end)
 ```
 
 Try evaluating the cell below over and over again. Notice that the counter value increments!
 We now have stateful processes!
 
 ```elixir
-send(counter_process, :increment)
+
 ```
 
 Stateful processes are short-term in-memory persistence. We can create a stateful process
@@ -425,6 +425,7 @@ defmodule Counter do
 
     receive do
       :increment -> loop(state + 1)
+      :decrement -> loop(state - 1)
     end
   end
 end
@@ -435,7 +436,11 @@ counter_process = spawn(fn -> Counter.loop() end)
 You should be able to send a `:decrement` message to a spawned `Counter`. Uncomment and evaluate the code below to test your solution.
 
 ```elixir
-# send(counter_process, :decrement)
+send(counter_process, :increment)
+```
+
+```elixir
+send(counter_process, :decrement)
 ```
 
 ## Commit Your Progress

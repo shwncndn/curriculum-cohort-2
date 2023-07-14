@@ -75,9 +75,10 @@ spawn(fn -> int1 + int2 end)
 Use [Process.spawn/2](https://hexdocs.pm/elixir/Process.html#spawn/2) and [Process.sleep/1](https://hexdocs.pm/elixir/Process.html#sleep/1) to spawn a process that sleeps for five seconds, then prints "Finished!".
 
 ```elixir
-spawn(fn -> "Process drills spawned process" end)
-Process.sleep(5000)
-IO.puts(IO.puts("Finished!"))
+spawn(fn ->
+  Process.sleep(5000)
+  IO.puts("Finished!")
+end)
 ```
 
 Use [Process.spawn/2](https://hexdocs.pm/elixir/Process.html#spawn/2) and [receive](https://hexdocs.pm/elixir/Kernel.SpecialForms.html#receive/1) to spawn a process that receives a `:message` message. Use [Process.send/3](https://hexdocs.pm/elixir/Process.html#send/3) to send the spawned process a `:message` message. The spawned process should print `"received a message!"`.
@@ -121,9 +122,10 @@ Use [Process.spawn/3](https://hexdocs.pm/elixir/Process.html#spawn/3) and [Proce
 Livebook should crash. Comment out your solution so that you can move on.
 
 ```elixir
-# pid = spawn(fn -> raise "error" end)
+# pid = spawn(fn -> Process.sleep(1000)
+# raise "error" 
+# end)
 # Process.link(pid)
-# Process.sleep(1000)
 ```
 
 ## Process.alive?/1
@@ -133,26 +135,15 @@ Use [Process.spawn/2](https://hexdocs.pm/elixir/Process.html#spawn/2) and [Proce
 ```elixir
 pid =
   spawn(fn ->
-    # spawned process starts
     IO.puts("start process")
-    # process sleeps for 5 seconds
     Process.sleep(5000)
-    # indicates 5 seconds is over
     IO.puts("process died")
   end)
 
-# starts at the same time pid process spawns
 IO.puts("waiting two seconds")
-# sleeps for 2 seconds
 Process.sleep(2000)
-# indicates 2 seconds is over
 IO.puts("done waiting")
-# process is still alive
 Process.alive?(pid)
-
-# Process.alive? checks if process is still alive after 2 seconds, 
-# which is informed by Process.sleep(2000)
-# returns true because pid is not instructed to die until after 5 seconds
 ```
 
 Use [Process.spawn/2](https://hexdocs.pm/elixir/Process.html#spawn/2) and [Process.sleep/1](https://hexdocs.pm/elixir/Process.html#sleep/1) to spawn a process that sleeps for five seconds. Use [Process.alive?/1](https://hexdocs.pm/elixir/Process.html#alive?/1) and [Process.sleep/1](https://hexdocs.pm/elixir/Process.html#sleep/1) to check if the process is alive after six seconds. [Process.alive?/1](https://hexdocs.pm/elixir/Process.html#alive?/1) should return `false`.
@@ -183,6 +174,14 @@ Process.alive?(pid)
 Use [Process.send_after/4](https://hexdocs.pm/elixir/Process.html#send_after/4) and `self()` to send the process for the Elixir cell below a message after two seconds. Use [receive](https://hexdocs.pm/elixir/Kernel.SpecialForms.html#receive/1) in the same cell to receive the message.
 
 ```elixir
+self()
+```
+
+```elixir
+spawn(fn -> IO.inspect(self()) end)
+```
+
+```elixir
 Process.send_after(self(), :message, 2000)
 
 receive do
@@ -196,7 +195,7 @@ Use [Process.spawn/3](https://hexdocs.pm/elixir/Process.html#spawn/3) to and [re
 pid =
   spawn(fn ->
     receive do
-      :message -> "message received"
+      :message -> IO.puts("message received")
     end
   end)
 
@@ -225,9 +224,9 @@ Use [Kernel.spawn_link/1](https://hexdocs.pm/elixir/Kernel.html#spawn_link/1) an
 Notice that the Livebook does not crash. Switch the exit reason to `:kill` and notice that the Livebook does crash. Comment out your solution to avoid crashing Livebook.
 
 ```elixir
-# pid = spawn_link(fn -> Process.sleep(5000) end)
+pid = spawn_link(fn -> Process.sleep(5000) end)
 
-# Process.exit(pid, :kill)
+Process.exit(pid, :kill)
 ```
 
 ## Commit Your Progress
