@@ -73,6 +73,14 @@ will crash due to a function clause error because the `handle_call/2` function e
 Uncomment the following code to watch the `Stack` crash.
 
 ```elixir
+children = [
+  {Stack, "pop"}
+]
+
+{:ok, sup_pid} = Supervisor.start_link(children, strategy: :one_for_one)
+```
+
+```elixir
 # {:ok, pid} = GenServer.start_link(Stack, [])
 # GenServer.call(stack_pid, :pop)
 ```
