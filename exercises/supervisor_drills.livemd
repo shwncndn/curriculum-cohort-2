@@ -80,7 +80,10 @@ Supervisor.start_link([], strategy: :one_for_one)
 </details>
 
 ```elixir
+children = []
 
+{:ok, sup_pid} = Supervisor.start_link(children, strategy: :one_for_one)
+Supervisor.which_children(sup_pid)
 ```
 
 Use [Supervisor.start_link/3](https://hexdocs.pm/elixir/Supervisor.html#start_link/3) function to start a supervisor with the `Worker` as a child using the **map** syntax.
@@ -102,7 +105,11 @@ Supervisor.start_link(children, strategy: :one_for_one)
 </details>
 
 ```elixir
+children = [
+  %{id: :worker1, start: {Worker, :start_link, [0]}}
+]
 
+{:ok, sup_pid} = Supervisor.start_link(children, strategy: :one_for_one)
 ```
 
 Use [Supervisor.start_link/3](https://hexdocs.pm/elixir/Supervisor.html#start_link/3) function to start a supervisor three `Worker` children using the **map** syntax.
@@ -132,7 +139,23 @@ Supervisor.start_link(children, strategy: :one_for_one)
 </details>
 
 ```elixir
+children = [
+  %{
+    id: :worker1,
+    start: {Worker, :start_link, [1]}
+  },
+  %{
+    id: :worker2,
+    start: {Worker, :start_link, [2]}
+  },
+  %{
+    id: :worker3,
+    start: {Worker, :start_link, [3]}
+  }
+]
 
+{:ok, sup_pid} = Supervisor.start_link(children, strategy: :one_for_one)
+Supervisor.which_children(sup_pid)
 ```
 
 Use [Supervisor.start_link/3](https://hexdocs.pm/elixir/Supervisor.html#start_link/3) function to start a supervisor with the `Worker` as a child using the **tuple** syntax.
@@ -151,7 +174,11 @@ Supervisor.start_link(children, strategy: :one_for_one)
 </details>
 
 ```elixir
+children = [
+  {Worker, [[name: "worker1"]]}
+]
 
+Supervisor.start_link(children, strategy: :one_for_one)
 ```
 
 Use [Supervisor.start_link/3](https://hexdocs.pm/elixir/Supervisor.html#start_link/3) function to start a supervisor with the `Worker` as a child using the **map** syntax to start the `Worker` process as a named process.
@@ -173,7 +200,13 @@ Supervisor.start_link(children, strategy: :one_for_one)
 </details>
 
 ```elixir
+# this compiles but do named processes have to be named with an atom?
 
+children = [
+  %{id: :worker100, start: {Worker, :start_link, [[name: "Worker 100"]]}}
+]
+
+Supervisor.start_link(children, strategy: :one_for_one)
 ```
 
 Usually worker GenServers should define a `start_link/1` function to start under a supervision tree. However, this is idiomatic and we can (but usually shouldn't) break this rule.
@@ -208,6 +241,15 @@ defmodule NonIdiomatic do
     {:ok, "initial state"}
   end
 end
+
+children = [
+  %{
+    id: :never_do_this,
+    start: {NonIdiomatic, :starter, ["1", "2", "3"]}
+  }
+]
+
+Supervisor.start_link(children, strategy: :one_for_one)
 ```
 
 Use [Supervisor.start_link/3](https://hexdocs.pm/elixir/Supervisor.html#start_link/3) function to start a supervisor with three `Worker` children using the **tuple** syntax.
@@ -232,7 +274,13 @@ Supervisor.start_link(children, strategy: :one_for_one)
 </details>
 
 ```elixir
+children = [
+  {Worker, "worker1"},
+  {Worker, "worker2"},
+  {Worker, "worker3"}
+]
 
+Supervisor.start_link(children, strategy: :one_for_one)
 ```
 
 ## Commit Your Progress
