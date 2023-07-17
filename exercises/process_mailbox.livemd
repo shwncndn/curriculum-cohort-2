@@ -143,8 +143,6 @@ defmodule Mailbox do
     IO.inspect(state)
 
     receive do
-      {:send, message} -> loop(state)
-      {:read, message} -> loop(state)
     end
   end
 end

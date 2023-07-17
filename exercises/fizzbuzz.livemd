@@ -9,27 +9,6 @@ Mix.install([
 ])
 ```
 
-## Navigation
-
-<div style="display: flex; align-items: center; width: 100%; justify-content: space-between; font-size: 1rem; color: #61758a; background-color: #f0f5f9; height: 4rem; padding: 0 1rem; border-radius: 1rem;">
-<div style="display: flex;">
-<i class="ri-home-fill"></i>
-<a style="display: flex; color: #61758a; margin-left: 1rem;" href="../start.livemd">Home</a>
-</div>
-<div style="display: flex;">
-<i class="ri-bug-fill"></i>
-<a style="display: flex; color: #61758a; margin-left: 1rem;" href="https://github.com/DockYard-Academy/curriculum/issues/new?assignees=&labels=&template=issue.md&title=FizzBuzz">Report An Issue</a>
-</div>
-<div style="display: flex;">
-<i class="ri-arrow-left-fill"></i>
-<a style="display: flex; color: #61758a; margin-left: 1rem;" href="../reading/enum.livemd">Enum</a>
-</div>
-<div style="display: flex;">
-<a style="display: flex; color: #61758a; margin-right: 1rem;" href="../exercises/named_number_lists.livemd">Named Number Lists</a>
-<i class="ri-arrow-right-fill"></i>
-</div>
-</div>
-
 ## FizzBuzz
 
 In the Elixir cell below create a Module `FizzBuzz` with a function `run/1` which takes in a **range**.
@@ -80,6 +59,35 @@ YouTube.new("https://www.youtube.com/watch?v=QPZ0pIK_wsc&ab_channel=TomScott")
 ```
 
 ```elixir
+defmodule FizzBuzz_2 do
+  @doc """
+  FizzBuzz_2.
+
+  ## Examples
+
+    iex> FizzBuzz_2.run(1..15)
+    [1, 2, "fizz", 4, "buzz", "fizz", 7, 8, "fizz", "buzz", 11, "fizz", 13, 14, "fizzbuzz"]
+
+    iex> FizzBuzz_2.run(10..15)
+    ["buzz", 11, "fizz", 13, 14, "fizzbuzz"]
+  """
+
+  def run(range) do
+    Enum.map(range, fn int ->
+      cond do
+        rem(int, 3) == 0 and rem(int, 5) == 0 -> "fizzbuzz"
+        rem(int, 3) == 0 -> "fizz"
+        rem(int, 5) == 0 -> "buzz"
+        true -> int
+      end
+    end)
+  end
+end
+
+FizzBuzz_2.run(1..15)
+```
+
+```elixir
 defmodule FizzBuzz do
   @doc """
   FizzBuzz.
@@ -118,6 +126,27 @@ end
 
 FizzBuzz.run(1..15)
 ```
+
+## Navigation
+
+<div style="display: flex; align-items: center; width: 100%; justify-content: space-between; font-size: 1rem; color: #61758a; background-color: #f0f5f9; height: 4rem; padding: 0 1rem; border-radius: 1rem;">
+<div style="display: flex;">
+<i class="ri-home-fill"></i>
+<a style="display: flex; color: #61758a; margin-left: 1rem;" href="../start.livemd">Home</a>
+</div>
+<div style="display: flex;">
+<i class="ri-bug-fill"></i>
+<a style="display: flex; color: #61758a; margin-left: 1rem;" href="https://github.com/DockYard-Academy/curriculum/issues/new?assignees=&labels=&template=issue.md&title=FizzBuzz">Report An Issue</a>
+</div>
+<div style="display: flex;">
+<i class="ri-arrow-left-fill"></i>
+<a style="display: flex; color: #61758a; margin-left: 1rem;" href="../reading/enum.livemd">Enum</a>
+</div>
+<div style="display: flex;">
+<a style="display: flex; color: #61758a; margin-right: 1rem;" href="../exercises/named_number_lists.livemd">Named Number Lists</a>
+<i class="ri-arrow-right-fill"></i>
+</div>
+</div>
 
 ## Commit Your Progress
 

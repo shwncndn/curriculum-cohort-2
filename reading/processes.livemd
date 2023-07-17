@@ -96,6 +96,14 @@ self()
 We can `send/2` and `receive/1` messages between processes by using their **pid**. Likewise, a process can send its `self()` a message.
 
 ```elixir
+send(self(), "message")
+
+receive do
+  "message" -> "message received"
+end
+```
+
+```elixir
 send(self(), "new message")
 
 receive do
@@ -113,6 +121,14 @@ end
 
 The left-hand side of the receive expression can pattern match on any value.
 It's much like a `case` statement.
+
+```elixir
+send(self(), {:hello, "world"})
+
+receive do
+  {:hello, payload} -> payload
+end
+```
 
 ```elixir
 send(self(), {:hello, "world"})
