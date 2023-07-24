@@ -69,7 +69,8 @@ Struct creation functions typically returns an `{ok, struct}` tuple or an `{:err
 
 ```elixir
 # Valid Params
-{:ok, %Person{age: 20, name: "valid name"}} = Person.new(%{name: "valid name", age: 20})
+{:ok, %Person{age: 20, name: "valid name"}} =
+  Person.new(%{name: "valid name", age: 20}) |> IO.inspect()
 
 # Invalid Params
 {:error, :invalid_params} = Person.new(%{name: ["invalid name"], age: 20})

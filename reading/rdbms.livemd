@@ -384,7 +384,7 @@ We can then use [SQL Comparison Operators](https://www.sqltutorial.org/sql-compa
 
 Livebook provides [Smart Cells](https://www.youtube.com/watch?v=4hVIxyHxwK8&ab_channel=ElixirConf) which can connect to our PostgreSQL Database. For example, the following smart cell should successfully connect to your `example` database if you used the default `postgres` user.
 
-<!-- livebook:{"attrs":{"database":"example","hostname":"localhost","password":"postgres","port":5432,"type":"postgres","username":"postgres","variable":"conn"},"chunks":null,"kind":"Elixir.KinoDB.ConnectionCell","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":{"database":"example","hostname":"localhost","password":"postgres","port":5432,"type":"postgres","use_ipv6":false,"username":"postgres","variable":"conn"},"chunks":null,"kind":"Elixir.KinoDB.ConnectionCell","livebook_object":"smart_cell"} -->
 
 ```elixir
 opts = [
@@ -400,10 +400,10 @@ opts = [
 
 Once connected, these smart cells can make SQL queries to our database. Here you should see your users table.
 
-<!-- livebook:{"attrs":{"connection":{"type":"postgres","variable":"conn"},"query":"select * from users","result_variable":"result2","timeout":null},"chunks":null,"kind":"Elixir.KinoDB.SQLCell","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":{"cache_query":true,"connection":{"type":"postgres","variable":"conn"},"query":"select * from entries ","result_variable":"result2","timeout":null},"chunks":null,"kind":"Elixir.KinoDB.SQLCell","livebook_object":"smart_cell"} -->
 
 ```elixir
-result2 = Postgrex.query!(conn, "select * from users", [])
+result2 = Postgrex.query!(conn, "select * from entries ", [])
 ```
 
 ### Your Turn
@@ -412,18 +412,31 @@ result2 = Postgrex.query!(conn, "select * from users", [])
 
 Use the following SQL smart cell to create a new user in the users table. Re-evaluate the smart cell above to see the new user in the table.
 
-<!-- livebook:{"attrs":{"cache_query":true,"connection":{"type":"postgres","variable":"conn"},"query":"","result_variable":"result3","timeout":null},"chunks":null,"kind":"Elixir.KinoDB.SQLCell","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":{"cache_query":true,"connection":{"type":"postgres","variable":"conn"},"query":"INSERT INTO users (ID,NAME,EMAIL) VALUES (3, 'Tony', 'ironman@starkindustries.com');","result_variable":"result3","timeout":null},"chunks":null,"kind":"Elixir.KinoDB.SQLCell","livebook_object":"smart_cell"} -->
 
 ```elixir
-result3 = Postgrex.query!(conn, "", [])
+result3 =
+  Postgrex.query!(
+    conn,
+    "INSERT INTO users (ID,NAME,EMAIL) VALUES (3, 'Tony', 'ironman@starkindustries.com');",
+    []
+  )
 ```
 
 Use the following SQL smart cell to create a new entry in the entries table, which has a foreign key to the same user you previously created.
 
-<!-- livebook:{"attrs":{"connection":{"type":"postgres","variable":"conn"},"query":"","result_variable":"result4","timeout":null},"chunks":null,"kind":"Elixir.KinoDB.SQLCell","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":{"cache_query":true,"connection":{"type":"postgres","variable":"conn"},"query":"\nINSERT INTO entries (ID, TITLE, CONTENT, USERID) VALUES (3, 'I am Iron Man', 'Today I created the Iron Man suit', 2);","result_variable":"result4","timeout":null},"chunks":null,"kind":"Elixir.KinoDB.SQLCell","livebook_object":"smart_cell"} -->
 
 ```elixir
-result4 = Postgrex.query!(conn, "", [])
+result4 =
+  Postgrex.query!(
+    conn,
+    """
+
+    INSERT INTO entries (ID, TITLE, CONTENT, USERID) VALUES (3, 'I am Iron Man', 'Today I created the Iron Man suit', 2);
+    """,
+    []
+  )
 ```
 
 ## Relationships

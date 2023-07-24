@@ -87,7 +87,12 @@ Identify the Protocol, Domain Name, Path, and Query string (separated into separ
 
 https://www.fakedomaindoesnotexist.com/fake/domain?greeting=hello&fake=true
 
-<!-- livebook:{"break_markdown":true} -->
+```elixir
+# protocol = https://
+# domain = www.fakedomaindoesnotexist.com
+# path = /fake/domain
+# query = ?greeting=hello&fake=true
+```
 
 ### HTTP Request Methods
 
@@ -472,7 +477,33 @@ IO.puts(message)
 </details>
 
 ```elixir
+# bind the build to the request variable
+request =
+  Finch.build(
+    # method
+    :post,
+    # url
+    "https://api.openai.com/v1/chat/completions",
+    [
+      # headers
+      {"Content-Type", "application/json"},
+      {"Authorization", "Bearer (REMOVED)"}
+    ],
+    # body
+    Jason.encode!(%{
+      model: "gpt-3.5-turbo",
+      messages: [%{role: "user", content: "Hello!"}]
+    })
+  )
+  # sends the http request and returns a response
+  |> Finch.request!(MyApp.Finch)
+  |> IO.inspect(label: "response")
 
+decoded_body = Jason.decode!(request.body) |> IO.inspect(label: "decoded response")
+
+[%{"message" => %{"content" => message}}] = decoded_body["choices"]
+
+IO.puts(message)
 ```
 
 ## Commit Your Progress

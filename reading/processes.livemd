@@ -30,6 +30,18 @@ Mix.install([
 </div>
 </div>
 
+```elixir
+mentors = ["Stephan", "Ayiko", "Brooklin"]
+
+students = [
+  "Jakub",
+  "Shawn",
+  "random"
+]
+
+Enum.zip(Enum.shuffle(mentors), students)
+```
+
 ## Review Questions
 
 Upon completing this lesson, a student should be able to answer the following questions.
