@@ -386,6 +386,17 @@ query =
   |> order_by([p], desc: p.published_on)
 ```
 
+```elixir
+id = "%#{id}%"
+
+query =
+  from(p in Post,
+    where:
+      p.id >=
+        query = from(u in User, where: u.age > 18)
+  )
+```
+
 ## Repo
 
 The [Ecto.Repo](https://hexdocs.pm/ecto/Ecto.Repo.html#c:insert/2) module defines functions for working with the database. Anytime we need to manipulate records in the database we work with the `Repo` module.
