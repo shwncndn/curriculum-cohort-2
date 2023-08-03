@@ -89,108 +89,123 @@ end
 Enter your solution below.
 
 ```elixir
-defmodule Filter do
-  @doc """
-  Filter in integers in list.
-
-  ## Examples
-
-    iex> Filter.integers([1, 2, %{}, {}, []])
-    [1, 2]
-  """
+defmodule Filters do
   def integers(list) do
     Enum.filter(list, fn each -> is_integer(each) end)
   end
 
-  @doc """
-  Filter in floats in list.
-
-  ## Examples
-
-    iex> Filter.floats([1, 2, %{}, {}, [], 1.2, 3.2])
-    [1.2, 3.2]
-  """
-
   def floats(list) do
-    Enum.filter(list, &is_float/1)
-  end
-
-  @doc """
-  Filter in numbers and floats in list.
-
-  ## Examples
-
-    iex> Filter.numbers([1, 2, %{}, {}, [], 1.2, 3.2])
-    [1, 2, 1.2, 3.2]
-  """
-  def numbers(list) do
-    Enum.filter(list, fn each -> is_number(each) end)
-  end
-
-  @doc """
-  Filter in atoms in list.
-
-  ## Examples
-
-    iex> Filter.atoms([1, 2, %{}, {}, [], :first_atom, 1.2, 3.2, :second_atom])
-    [:first_atom, :second_atom]
-  """
-  def atoms(list) do
-    Enum.filter(list, fn each -> is_atom(each) end)
-  end
-
-  @doc """
-  Filter in lists and keyword lists in list.
-
-  ## Examples
-
-    iex> Filter.lists([1, 2, %{}, {}, [], 1.2, 3.2, :atom, [1, 2], [4, 5, 6]])
-    [[], [1, 2], [4, 5, 6]]
-  """
-  def lists(list) do
-    Enum.filter(list, fn each -> is_list(each) end)
-  end
-
-  @doc """
-  Filter in maps in list.
-
-  ## Examples
-
-    iex> Filter.maps([1, 2, %{}, {}, [], 1.2, 3.2, :atom, %{key: "value"}])
-    [%{}, %{key: "value"}]
-  """
-
-  # def maps(list) do
-  #   Enum.filter(list, fn each -> is_map() end)
-  # end
-
-  @doc """
-  Filter in keyword lists.
-
-  ## Examples
-
-    iex> Filter.keyword_lists([1, 2, %{}, {}, [], 1.2, 3.2, :atom, %{key: "value"}, [key: "value"]])
-    [[], [key: "value"]]
-  """
-
-  # Keyword.has_key?([a: 1], :a)
-  # true
-  # Keyword.has_key?([a: 1], :b)
-  # false
-
-  def keyword_lists(list) do
-    Enum.filter(list, fn each ->
-      Keyword.keyword?(each)
-    end)
+    Enum.filter(list, &is_float(&1))
   end
 end
 
-Filter.integers([1, 2, %{}, {}, 55]) |> IO.inspect()
+Filters.integers([4, 4.0, 5, "string"])
+Filters.floats([4.0, 4, 50.5, 20, "string"])
+```
 
-Filter.floats([1, 2, 3, 4.0, 5, 6.6, 5]) |> IO.inspect()
+```elixir
+# defmodule Filter do
+#   @doc """
+#   Filter in integers in list.
 
-Filter.keyword_lists([1, 2, %{}, {}, [], 1.2, 3.2, :atom, %{key: "value"}, [key: "value"]])
-|> IO.inspect()
+#   ## Examples
+
+#     iex> Filter.integers([1, 2, %{}, {}, []])
+#     [1, 2]
+#   """
+#   def integers(list) do
+#     Enum.filter(list, fn each -> is_integer(each) end)
+#   end
+
+#   @doc """
+#   Filter in floats in list.
+
+#   ## Examples
+
+#     iex> Filter.floats([1, 2, %{}, {}, [], 1.2, 3.2])
+#     [1.2, 3.2]
+#   """
+
+#   def floats(list) do
+#     Enum.filter(list, &is_float/1)
+#   end
+
+#   @doc """
+#   Filter in numbers and floats in list.
+
+#   ## Examples
+
+#     iex> Filter.numbers([1, 2, %{}, {}, [], 1.2, 3.2])
+#     [1, 2, 1.2, 3.2]
+#   """
+#   def numbers(list) do
+#     Enum.filter(list, fn each -> is_number(each) end)
+#   end
+
+#   @doc """
+#   Filter in atoms in list.
+
+#   ## Examples
+
+#     iex> Filter.atoms([1, 2, %{}, {}, [], :first_atom, 1.2, 3.2, :second_atom])
+#     [:first_atom, :second_atom]
+#   """
+#   def atoms(list) do
+#     Enum.filter(list, fn each -> is_atom(each) end)
+#   end
+
+#   @doc """
+#   Filter in lists and keyword lists in list.
+
+#   ## Examples
+
+#     iex> Filter.lists([1, 2, %{}, {}, [], 1.2, 3.2, :atom, [1, 2], [4, 5, 6]])
+#     [[], [1, 2], [4, 5, 6]]
+#   """
+#   def lists(list) do
+#     Enum.filter(list, fn each -> is_list(each) end)
+#   end
+
+#   @doc """
+#   Filter in maps in list.
+
+#   ## Examples
+
+#     iex> Filter.maps([1, 2, %{}, {}, [], 1.2, 3.2, :atom, %{key: "value"}])
+#     [%{}, %{key: "value"}]
+#   """
+
+#   # def maps(list) do
+#   #   Enum.filter(list, fn each -> is_map() end)
+#   # end
+
+#   @doc """
+#   Filter in keyword lists.
+
+#   ## Examples
+
+#     iex> Filter.keyword_lists([1, 2, %{}, {}, [], 1.2, 3.2, :atom, %{key: "value"}, [key: "value"]])
+#     [[], [key: "value"]]
+#   """
+
+#   # Keyword.has_key?([a: 1], :a)
+#   # true
+#   # Keyword.has_key?([a: 1], :b)
+#   # false
+
+#   def keyword_lists(list) do
+#     Enum.filter(list, fn each ->
+#       Keyword.keyword?(each)
+#     end)
+#   end
+# end
+
+# Filter.integers([1, 2, %{}, {}, 55]) |> IO.inspect()
+
+# Filter.floats([1, 2, 3, 4.0, 5, 6.6, 5]) |> IO.inspect()
+
+# Filter.keyword_lists([1, 2, %{}, {}, [], 1.2, 3.2, :atom, %{key: "value"}, [key: "value"]])
+# |> IO.inspect()
 ```
 
 ## Commit Your Progress

@@ -263,7 +263,9 @@ scope "/", BlogWeb do
 end
 ```
 
-<!-- livebook:{"break_markdown":true} -->
+```elixir
+
+```
 
 ### Requiring User Owns Resource
 

@@ -59,6 +59,23 @@ YouTube.new("https://www.youtube.com/watch?v=QPZ0pIK_wsc&ab_channel=TomScott")
 ```
 
 ```elixir
+defmodule FizzBuzz do
+  def run(range) do
+    Enum.map(range, fn int ->
+      cond do
+        rem(int, 3) == 0 and rem(int, 5) == 0 -> "fizzbuzz"
+        rem(int, 3) == 0 -> "fizz"
+        rem(int, 5) == 0 -> "buzz"
+        true -> int
+      end
+    end)
+  end
+end
+
+FizzBuzz.run(1..15)
+```
+
+```elixir
 defmodule FizzBuzz_2 do
   @doc """
   FizzBuzz_2.
