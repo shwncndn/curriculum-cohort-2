@@ -86,7 +86,7 @@ To experiment with Tailwind, we can use the Tailwind CDN (Content Delivery Netwo
 
 We've also created a [Livebook Tailwind Playground](https://github.com/BrooklinJazz/kino_tailwind_playground) for the purposes of demonstration. All tailwind examples are editable and render live.
 
-<!-- livebook:{"attrs":{"html":"<div class=\"flex items-center justify-center h-screen w-full bg-green-200\">\n  <h1 class=\"text-3xl font-bold underline text-center\">\n    Go Ahead And Change This Text!\n  </h1>\n</div>"},"chunks":null,"kind":"Elixir.Kino.TailwindPlayground","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":{"html":"<div class=\"flex items-center justify-center h-screen w-full bg--200\">\n  <h1 class=\"text-3xl font-bold text-left\">\n    Go Ahead And Change This Text!\n  </h1>\n</div>"},"chunks":null,"kind":"Elixir.Kino.TailwindPlayground","livebook_object":"smart_cell"} -->
 
 ```elixir
 Kino.nothing()
@@ -162,7 +162,7 @@ This color pallet works with a variety of utility classes such as [text-color](h
 
 So we can apply a background color and text color to an HTML element like so.
 
-<!-- livebook:{"attrs":{"html":"<p class=\"text-red-600 bg-blue-200\">I have a blue background and red text!</p>"},"chunks":null,"kind":"Elixir.Kino.TailwindPlayground","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":{"html":"<p class=\"text-pink-200 bg-blue-400\">I have a blue background and pink text!</p>"},"chunks":null,"kind":"Elixir.Kino.TailwindPlayground","livebook_object":"smart_cell"} -->
 
 ```elixir
 Kino.nothing()
@@ -192,7 +192,7 @@ Kino.nothing()
 
 `font-{weight}` sets the font weight of text. The `weight` can be `thin`, `extralight`, `light`, `normal`, `medium`, `semibold`, `bold`, `extrabold`, and `black`.
 
-<!-- livebook:{"attrs":{"html":"<section class=\"text-3xl\">\n  <p class=\"font-thin\">100</p>\n  <p class=\"font-extralight\">200</p>\n  <p class=\"font-light\">300</p>\n  <p class=\"font-normal\">400</p>\n  <p class=\"font-medium\">500</p>\n  <p class=\"font-semibold\">600</p>\n  <p class=\"font-bold\">700</p>\n  <p class=\"font-extrabold\">800</p>\n  <p class=\"font-black\">900</p>\n</section>"},"chunks":null,"kind":"Elixir.Kino.TailwindPlayground","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":{"html":"<section class=\"text-3xl text-left\">\n  <p class=\"font-thin bg-blue-900 hover:text-center\">100</p>\n  <p class=\"font-extralight bg-blue-800 hover:text-center\">200</p>\n  <p class=\"font-light bg-blue-700 hover:text-center\">300</p>\n  <p class=\"font-normal bg-blue-600 hover:text-center\">400</p>\n  <p class=\"font-medium bg-blue-500 hover:text-center\">500</p>\n  <p class=\"font-semibold bg-blue-400 hover:text-center\">600</p>\n  <p class=\"font-bold bg-blue-300 hover:text-center\">700</p>\n  <p class=\"font-extrabold bg-blue-200 hover:text-center\">800</p>\n  <p class=\"font-black bg-blue-100 hover:text-center\">900</p>\n</section>\n<section class=\"text-3xl text-right\">\n  <p class=\"font-black bg-teal-100 hover:text-center\">1000</p>\n  <p class=\"font-extrabold bg-teal-200 hover:text-center\">1100</p>\n  <p class=\"font-bold bg-teal-300 hover:text-center\">1200</p>\n  <p class=\"font-semibold bg-teal-400 hover:text-center\">1300</p>\n  <p class=\"font-medium bg-teal-500 hover:text-center\">1400</p>\n  <p class=\"font-normal bg-teal-600 hover:text-center\">1500</p>\n  <p class=\"font-light bg-teal-700 hover:text-center\">1600</p>\n  <p class=\"font-extralight bg-teal-800 hover:text-center\">1700</p>\n  <p class=\"font-thin bg-teal-900 hover:text-center\">1800</p>\n</section>"},"chunks":null,"kind":"Elixir.Kino.TailwindPlayground","livebook_object":"smart_cell"} -->
 
 ```elixir
 Kino.nothing()
@@ -285,7 +285,7 @@ We can set the max/min or height/width using the `max-h-{size}`, `min-h-{size}`,
 
 Combining `w-fit`
 
-<!-- livebook:{"attrs":{"html":""},"chunks":null,"kind":"Elixir.Kino.TailwindPlayground","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":{"html":"<p class=\"bg-gray-300 max-w-10rem\">For example, this paragraph will wrap words when the text is wider than 10rem.</p>"},"chunks":null,"kind":"Elixir.Kino.TailwindPlayground","livebook_object":"smart_cell"} -->
 
 ```elixir
 Kino.nothing()
@@ -299,7 +299,7 @@ Create a paragraph tag that will wrap text on a new line when wider than 10rem.
 For example, this paragraph will wrap words when the text is wider than 10rem.<p>
 </p>
 
-<!-- livebook:{"attrs":{},"chunks":null,"kind":"Elixir.Kino.TailwindPlayground","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":{"html":"<p class=\"bg-gray-300 max-w-10rem\">For example, this paragraph will wrap words when the text is wider than 10rem.</p>"},"chunks":null,"kind":"Elixir.Kino.TailwindPlayground","livebook_object":"smart_cell"} -->
 
 ```elixir
 Kino.nothing()
